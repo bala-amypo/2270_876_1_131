@@ -28,10 +28,8 @@ public class Zone {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    // Default constructor
     public Zone() {}
 
-    // Parameterized constructor
     public Zone(String zoneName, Integer priorityLevel, Integer population, Boolean active) {
         this.zoneName = zoneName;
         this.priorityLevel = priorityLevel;
@@ -50,20 +48,48 @@ public class Zone {
         updatedAt = new Timestamp(System.currentTimeMillis());
     }
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public String getZoneName() { return zoneName; }
-    public void setZoneName(String zoneName) { this.zoneName = zoneName; }
+    public Long getId() { 
+        return id; 
+    }
 
-    public Integer getPriorityLevel() { return priorityLevel; }
-    public void setPriorityLevel(Integer priorityLevel) { this.priorityLevel = priorityLevel; }
+    public String getZoneName() { 
+        return zoneName; 
+    }
 
-    public Integer getPopulation() { return population; }
-    public void setPopulation(Integer population) { this.population = population; }
+    public void setZoneName(String zoneName) { 
+        this.zoneName = zoneName; 
+    }
 
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    public Integer getPriorityLevel() { 
+        return priorityLevel; 
+    }
 
-    public Timestamp getCreatedAt() { return createdAt; }
-    public Timestamp getUpdatedAt() { return updatedAt; }
+    public void setPriorityLevel(Integer priorityLevel) { 
+        this.priorityLevel = priorityLevel; 
+    }
+
+    public Integer getPopulation() { 
+        return population; 
+    }
+
+    public void setPopulation(Integer population) { 
+    this.population = population; 
+    }
+
+    public Boolean getActive() { 
+    return active; 
+    }
+
+    public void setActive(Boolean active) { 
+    this.active = active; 
+    }
+
+    public Timestamp getCreatedAt() { 
+    return createdAt; 
+    }
+
+    public Timestamp getUpdatedAt() { 
+    return updatedAt; 
+    }
+
 }

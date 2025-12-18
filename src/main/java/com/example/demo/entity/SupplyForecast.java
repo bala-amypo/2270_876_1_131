@@ -40,8 +40,14 @@ public class SupplyForecast {
     public Timestamp getForecastStart() { return forecastStart; }
     public void setForecastStart(Timestamp forecastStart) { this.forecastStart = forecastStart; }
 
-    public Timestamp getForecastEnd() { return forecastEnd; }
-    public void setForecastEnd(Timestamp forecastEnd) { this.forecastEnd = forecastEnd; }
+    public Timestamp getForecastEnd() { 
+        return forecastEnd; }
+    public void setForecastEnd(Timestamp forecastEnd) { 
+        this.forecastEnd = forecastEnd; 
+    }
 
-    public Timestamp getGeneratedAt() { return generatedAt; }
+    public Timestamp getGeneratedAt() { 
+        return generatedAt; 
+    }
+
 }
