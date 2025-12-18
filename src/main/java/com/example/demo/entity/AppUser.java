@@ -1,15 +1,4 @@
-package com.example.loadshedding.entity;
-
-import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.Set;
-
 @Entity
-@Table(
-    name = "app_users",
-    uniqueConstraints = @UniqueConstraint(columnNames = "email")
-)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,20 +10,25 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
     private String email;
-
-    @Column(nullable = false)
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(
-        name = "user_roles",
-        joinColumns = @JoinColumn(name = "user_id")
-    )
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @Column(nullable = false)
-    private Boolean active = true;
+    private Boolean active;
+
+    public AppUser() {
+        this.active = true;
+    }
+
+    public AppUser(Long id, String email, String password,
+                   Set<Role> roles, Boolean active) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.active = active;
+    }
 }
