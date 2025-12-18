@@ -1,5 +1,4 @@
 package com.example.demo.entity;
-j u j
 import jakarta.persistence.*;
 import java.util.Set;
 
