@@ -42,9 +42,7 @@ public class AppUser {
         this.active = true;
     }
 
-    public Zone(Long id, String zoneName, Integer priorityLevel,
-                Integer population, Boolean active,
-                Instant createdAt, Instant updatedAt) {
+    public Zone(Long id, String zoneName, Integer priorityLevel,Integer population, Boolean active,Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.zoneName = zoneName;
         this.priorityLevel = priorityLevel;

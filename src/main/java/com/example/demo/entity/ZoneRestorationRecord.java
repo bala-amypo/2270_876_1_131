@@ -34,9 +34,7 @@ public class ZoneRestorationRecord {
     public ZoneRestorationRecord() {
 }
 
-public ZoneRestorationRecord(Long id, Zone zone,
-                             Instant restoredAt, Long eventId,
-                             String notes) {
+public ZoneRestorationRecord(Long id, Zone zone,Instant restoredAt, Long eventId,String notes) {
     this.id = id;
     this.zone = zone;
     this.restoredAt = restoredAt;
