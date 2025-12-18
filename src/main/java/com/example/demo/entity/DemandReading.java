@@ -29,14 +29,30 @@ public class DemandReading {
         this.recordedAt = recordedAt;
     }
 
-    public Long getId() { return id; }
+    public Long getId() { 
+        return id; 
+    }
 
-    public Zone getZone() { return zone; }
-    public void setZone(Zone zone) { this.zone = zone; }
+    public Zone getZone() { 
+        return zone; 
+    }
 
-    public Double getDemandMW() { return demandMW; }
-    public void setDemandMW(Double demandMW) { this.demandMW = demandMW; }
+    public void setZone(Zone zone) { 
+        this.zone = zone; 
+    }
 
-    public Timestamp getRecordedAt() { return recordedAt; }
-    public void setRecordedAt(Timestamp recordedAt) { this.recordedAt = recordedAt; }
+    public Double getDemandMW() { 
+        return demandMW; 
+    }
+
+    public void setDemandMW(Double demandMW) { 
+        this.demandMW = demandMW; 
+    }
+
+    public Timestamp getRecordedAt() { 
+        return recordedAt; 
+    }
+    public void setRecordedAt(Timestamp recordedAt) { 
+        this.recordedAt = recordedAt; 
+    }
 }
