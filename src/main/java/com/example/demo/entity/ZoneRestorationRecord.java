@@ -1,45 +1,66 @@
-package com.example.loadshedding.entity;
+package com.yourapp.project.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.time.Instant;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "zone_restoration_records")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class ZoneRestorationRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "zone_id")
+    @ManyToOne
+    @JoinColumn(name = "zone_id", nullable = false)
     private Zone zone;
 
-    @Column(nullable = false)
-    private Instant restoredAt;
-
-    @Column(nullable = false)
+    private Timestamp restoredAt;
     private Long eventId;
-
-    @Column
     private String notes;
 
-    public ZoneRestorationRecord() {
-}
+    public ZoneRestorationRecord() {}
 
-public ZoneRestorationRecord(Long id, Zone zone,Instant restoredAt, Long eventId,String notes) {
-    this.id = id;
-    this.zone = zone;
-    this.restoredAt = restoredAt;
-    this.eventId = eventId;
-    this.notes = notes;
-}
+    public ZoneRestorationRecord(Zone zone, Timestamp restoredAt, Long eventId, String notes) {
+        this.zone = zone;
+        this.restoredAt = restoredAt;
+        this.eventId = eventId;
+        this.notes = notes;
+    }
 
+    public Long getId() { 
+        return id; 
+    }
+
+    public Zone getZone() { 
+        return zone; 
+    }
+
+    public void setZone(Zone zone) { 
+    this.zone = zone; 
+    }
+
+    public Timestamp getRestoredAt() { 
+        return restoredAt; 
+    }
+
+    public void setRestoredAt(Timestamp restoredAt) { 
+    this.restoredAt = restoredAt; 
+    }
+
+    public Long getEventId() { 
+    return eventId; 
+    }
+
+    public void setEventId(Long eventId) { 
+    this.eventId = eventId; 
+    }
+
+    public String getNotes() { 
+    return notes; 
+    }
+
+    public void setNotes(String notes) { 
+    this.notes = notes; 
+    }
 }

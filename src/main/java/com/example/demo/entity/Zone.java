@@ -1,54 +1,69 @@
-package com.example.loadshedding.entity;
+package com.yourapp.project.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.Set;
+import java.sql.Timestamp;
 
 @Entity
 @Table(
-    name = "app_users",
-    uniqueConstraints = @UniqueConstraint(columnNames = "email")
+    name = "zones",
+    uniqueConstraints = @UniqueConstraint(columnNames = "zone_name")
 )
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class AppUser {
+public class Zone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Column(name = "zone_name", nullable = false, unique = true)
+    private String zoneName;
 
     @Column(nullable = false)
-    private String password;
+    private Integer priorityLevel;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(
-        name = "user_roles",
-        joinColumns = @JoinColumn(name = "user_id")
-    )
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+    private Integer population;
 
     @Column(nullable = false)
     private Boolean active = true;
 
-    public Zone() {
-        this.active = true;
-    }
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
-    public Zone(Long id, String zoneName, Integer priorityLevel,Integer population, Boolean active,Instant createdAt, Instant updatedAt) {
-        this.id = id;
+    // Default constructor
+    public Zone() {}
+
+    // Parameterized constructor
+    public Zone(String zoneName, Integer priorityLevel, Integer population, Boolean active) {
         this.zoneName = zoneName;
         this.priorityLevel = priorityLevel;
         this.population = population;
         this.active = active;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Timestamp(System.currentTimeMillis());
+        updatedAt = createdAt;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public String getZoneName() { return zoneName; }
+    public void setZoneName(String zoneName) { this.zoneName = zoneName; }
+
+    public Integer getPriorityLevel() { return priorityLevel; }
+    public void setPriorityLevel(Integer priorityLevel) { this.priorityLevel = priorityLevel; }
+
+    public Integer getPopulation() { return population; }
+    public void setPopulation(Integer population) { this.population = population; }
+
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
+
+    public Timestamp getCreatedAt() { return createdAt; }
+    public Timestamp getUpdatedAt() { return updatedAt; }
 }

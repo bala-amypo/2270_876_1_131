@@ -1,49 +1,47 @@
-package com.example.loadshedding.entity;
+package com.yourapp.project.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.time.Instant;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "supply_forecasts")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class SupplyForecast {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private Double availableSupplyMW;
 
-    @Column(nullable = false)
-    private Instant forecastStart;
+    private Timestamp forecastStart;
+    private Timestamp forecastEnd;
+    private Timestamp generatedAt;
 
-    @Column(nullable = false)
-    private Instant forecastEnd;
+    public SupplyForecast() {}
 
-    @Column(nullable = false, updatable = false)
-    private Instant generatedAt;
-
-    @PrePersist
-    public void onGenerate() {
-        generatedAt = Instant.now();
+    public SupplyForecast(Double availableSupplyMW, Timestamp forecastStart, Timestamp forecastEnd) {
+        this.availableSupplyMW = availableSupplyMW;
+        this.forecastStart = forecastStart;
+        this.forecastEnd = forecastEnd;
     }
 
-    public SupplyForecast() {
-}
+    @PrePersist
+    protected void onGenerate() {
+        generatedAt = new Timestamp(System.currentTimeMillis());
+    }
 
-public SupplyForecast(Long id, Double availableSupplyMW,Instant forecastStart, Instant forecastEnd,Instant generatedAt) {
-    this.id = id;
-    this.availableSupplyMW = availableSupplyMW;
-    this.forecastStart = forecastStart;
-    this.forecastEnd = forecastEnd;
-    this.generatedAt = generatedAt;
-}
+    public Long getId() { return id; }
 
+    public Double getAvailableSupplyMW() { return availableSupplyMW; }
+    public void setAvailableSupplyMW(Double availableSupplyMW) {
+        this.availableSupplyMW = availableSupplyMW;
+    }
+
+    public Timestamp getForecastStart() { return forecastStart; }
+    public void setForecastStart(Timestamp forecastStart) { this.forecastStart = forecastStart; }
+
+    public Timestamp getForecastEnd() { return forecastEnd; }
+    public void setForecastEnd(Timestamp forecastEnd) { this.forecastEnd = forecastEnd; }
+
+    public Timestamp getGeneratedAt() { return generatedAt; }
 }
