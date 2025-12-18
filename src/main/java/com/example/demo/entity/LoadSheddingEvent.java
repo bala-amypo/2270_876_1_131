@@ -39,26 +39,54 @@ public class LoadSheddingEvent {
         this.expectedDemandReductionMW = expectedDemandReductionMW;
     }
 
-    public Long getId() { return id; }
+    public Long getId() { 
+        return id; 
+    }
 
-    public Zone getZone() { return zone; }
-    public void setZone(Zone zone) { this.zone = zone; }
+    public Zone getZone() { 
+        return zone;
+    }
 
-    public Timestamp getEventStart() { return eventStart; }
-    public void setEventStart(Timestamp eventStart) { this.eventStart = eventStart; }
+    public void setZone(Zone zone) { 
+        this.zone = zone; 
+    }
 
-    public Timestamp getEventEnd() { return eventEnd; }
-    public void setEventEnd(Timestamp eventEnd) { this.eventEnd = eventEnd; }
+    public Timestamp getEventStart() { 
+        return eventStart; 
+    }
 
-    public String getReason() { return reason; }
-    public void setReason(String reason) { this.reason = reason; }
+    public void setEventStart(Timestamp eventStart) { 
+        this.eventStart = eventStart; 
+    }
 
-    public Long getTriggeredByForecastId() { return triggeredByForecastId; }
+    public Timestamp getEventEnd() { 
+        return eventEnd; 
+    }
+
+    public void setEventEnd(Timestamp eventEnd) { 
+        this.eventEnd = eventEnd; 
+    }
+
+    public String getReason() { 
+        return reason; 
+    }
+
+    public void setReason(String reason) { 
+        this.reason = reason; 
+    }
+
+    public Long getTriggeredByForecastId() { 
+        return triggeredByForecastId; 
+    }
+
     public void setTriggeredByForecastId(Long triggeredByForecastId) {
         this.triggeredByForecastId = triggeredByForecastId;
     }
 
-    public Double getExpectedDemandReductionMW() { return expectedDemandReductionMW; }
+    public Double getExpectedDemandReductionMW() { 
+        return expectedDemandReductionMW; 
+    }
+
     public void setExpectedDemandReductionMW(Double expectedDemandReductionMW) {
         this.expectedDemandReductionMW = expectedDemandReductionMW;
     }

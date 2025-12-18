@@ -32,16 +32,26 @@ public class SupplyForecast {
 
     public Long getId() { return id; }
 
-    public Double getAvailableSupplyMW() { return availableSupplyMW; }
+    public Double getAvailableSupplyMW() { 
+        return availableSupplyMW; 
+    }
+    
     public void setAvailableSupplyMW(Double availableSupplyMW) {
         this.availableSupplyMW = availableSupplyMW;
     }
 
-    public Timestamp getForecastStart() { return forecastStart; }
-    public void setForecastStart(Timestamp forecastStart) { this.forecastStart = forecastStart; }
+    public Timestamp getForecastStart() { 
+        return forecastStart; 
+    }
+
+    public void setForecastStart(Timestamp forecastStart) { 
+        this.forecastStart = forecastStart; 
+    }
 
     public Timestamp getForecastEnd() { 
-        return forecastEnd; }
+        return forecastEnd; 
+    }
+
     public void setForecastEnd(Timestamp forecastEnd) { 
         this.forecastEnd = forecastEnd; 
     }
