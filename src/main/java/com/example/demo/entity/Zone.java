@@ -37,4 +37,20 @@ public class AppUser {
 
     @Column(nullable = false)
     private Boolean active = true;
+
+    public Zone() {
+        this.active = true;
+    }
+
+    public Zone(Long id, String zoneName, Integer priorityLevel,
+                Integer population, Boolean active,
+                Instant createdAt, Instant updatedAt) {
+        this.id = id;
+        this.zoneName = zoneName;
+        this.priorityLevel = priorityLevel;
+        this.population = population;
+        this.active = active;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }

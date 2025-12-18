@@ -36,4 +36,18 @@ public class LoadSheddingEvent {
 
     @Column(nullable = false)
     private Double expectedDemandReductionMW;
+
+    public LoadSheddingEvent() {
+}
+
+public LoadSheddingEvent(Long id, Zone zone, Instant eventStart,Instant eventEnd, String reason,Long triggeredByForecastId,Double expectedDemandReductionMW) {
+    this.id = id;
+    this.zone = zone;
+    this.eventStart = eventStart;
+    this.eventEnd = eventEnd;
+    this.reason = reason;
+    this.triggeredByForecastId = triggeredByForecastId;
+    this.expectedDemandReductionMW = expectedDemandReductionMW;
+}
+
 }

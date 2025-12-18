@@ -27,4 +27,15 @@ public class DemandReading {
 
     @Column(nullable = false)
     private Instant recordedAt;
+
+    public DemandReading() {
+}
+
+public DemandReading(Long id, Zone zone, Double demandMW, Instant recordedAt) {
+    this.id = id;
+    this.zone = zone;
+    this.demandMW = demandMW;
+    this.recordedAt = recordedAt;
+}
+
 }

@@ -34,4 +34,16 @@ public class SupplyForecast {
     public void onGenerate() {
         generatedAt = Instant.now();
     }
+
+    public SupplyForecast() {
+}
+
+public SupplyForecast(Long id, Double availableSupplyMW,Instant forecastStart, Instant forecastEnd,Instant generatedAt) {
+    this.id = id;
+    this.availableSupplyMW = availableSupplyMW;
+    this.forecastStart = forecastStart;
+    this.forecastEnd = forecastEnd;
+    this.generatedAt = generatedAt;
+}
+
 }

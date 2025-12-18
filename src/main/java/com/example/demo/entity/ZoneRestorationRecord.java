@@ -30,4 +30,18 @@ public class ZoneRestorationRecord {
 
     @Column
     private String notes;
+
+    public ZoneRestorationRecord() {
+}
+
+public ZoneRestorationRecord(Long id, Zone zone,
+                             Instant restoredAt, Long eventId,
+                             String notes) {
+    this.id = id;
+    this.zone = zone;
+    this.restoredAt = restoredAt;
+    this.eventId = eventId;
+    this.notes = notes;
+}
+
 }
