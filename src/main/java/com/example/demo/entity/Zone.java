@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(
-    name = "Zone",
+    // name = "Zone",
     uniqueConstraints = @UniqueConstraint(columnNames = "zone_name")
 )
 public class Zone {

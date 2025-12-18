@@ -5,7 +5,7 @@ import java.util.Set;
 
 @Entity
 @Table(
-    name = "AppUser",
+    // name = "app_users",
     uniqueConstraints = @UniqueConstraint(columnNames = "email")
 )
 public class AppUser {

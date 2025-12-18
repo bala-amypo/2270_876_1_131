@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "zone_restoration_records")
+// @Table(name = "zone_restoration_records")
 public class ZoneRestorationRecord {
 
     @Id
