@@ -2,11 +2,11 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 
-@Entity
 // @Table(
 //     name = "Zone",
 //     uniqueConstraints = @UniqueConstraint(columnNames = "zone_name")
 // )
+@Entity
 public class Zone {
 
     @Id

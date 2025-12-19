@@ -2,11 +2,11 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import java.util.Set;
 
-@Entity
 // @Table(
 //     name = "app_users", 
 //     uniqueConstraints = @UniqueConstraint(columnNames = "email")
 //     )
+@Entity
 public class AppUser {
 
     @Id

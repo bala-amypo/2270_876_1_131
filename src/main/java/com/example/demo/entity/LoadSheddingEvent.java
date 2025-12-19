@@ -2,8 +2,8 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 
-@Entity
 // @Table(name = "load_shedding_events")
+@Entity
 public class LoadSheddingEvent {
 
     @Id

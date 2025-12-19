@@ -2,8 +2,8 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 
-@Entity
 // @Table(name = "supply_forecasts")
+@Entity
 public class SupplyForecast {
 
     @Id

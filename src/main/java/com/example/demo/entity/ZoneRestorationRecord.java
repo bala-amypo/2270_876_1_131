@@ -2,8 +2,8 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 
-@Entity
 // @Table(name = "zone_restoration_records")
+@Entity
 public class ZoneRestorationRecord {
 
     @Id
