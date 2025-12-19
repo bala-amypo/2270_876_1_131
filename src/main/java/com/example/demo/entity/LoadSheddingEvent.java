@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "load_shedding_events")
+// @Table(name = "load_shedding_events")
 public class LoadSheddingEvent {
 
     @Id

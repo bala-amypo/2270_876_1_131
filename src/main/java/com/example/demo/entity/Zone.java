@@ -3,10 +3,10 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(
-    name = "Zone",
-    uniqueConstraints = @UniqueConstraint(columnNames = "zone_name")
-)
+// @Table(
+//     name = "Zone",
+//     uniqueConstraints = @UniqueConstraint(columnNames = "zone_name")
+// )
 public class Zone {
 
     @Id

@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "supply_forecasts")
+// @Table(name = "supply_forecasts")
 public class SupplyForecast {
 
     @Id
