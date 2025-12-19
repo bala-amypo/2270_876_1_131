@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-// @Table(name = "demand_readings")
+@Table(name = "demand_readings")
 public class DemandReading {
 
     @Id
