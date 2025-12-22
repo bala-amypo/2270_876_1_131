@@ -6,7 +6,6 @@ public class SupplyForecast {
     private Double forecastValue;
 
     public SupplyForecast() {}
-
     public SupplyForecast(Long id, String zoneName, Double forecastValue) {
         this.id = id;
         this.zoneName = zoneName;
@@ -15,10 +14,8 @@ public class SupplyForecast {
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-
     public String getZoneName() { return zoneName; }
     public void setZoneName(String zoneName) { this.zoneName = zoneName; }
-
     public Double getForecastValue() { return forecastValue; }
     public void setForecastValue(Double forecastValue) { this.forecastValue = forecastValue; }
 }

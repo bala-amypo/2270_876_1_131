@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "zone_restoration_records")
-public class ZoneRestorationRecord {
+@Table(name = "zone_restorations")
+public class ZoneRestoration {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,8 +14,8 @@ public class ZoneRestorationRecord {
     private String zoneName;
     private Instant restoredAt;
 
-    public ZoneRestorationRecord() {}
-    public ZoneRestorationRecord(Long id, String zoneName, Instant restoredAt) {
+    public ZoneRestoration() {}
+    public ZoneRestoration(Long id, String zoneName, Instant restoredAt) {
         this.id = id;
         this.zoneName = zoneName;
         this.restoredAt = restoredAt;
@@ -23,10 +23,8 @@ public class ZoneRestorationRecord {
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-
     public String getZoneName() { return zoneName; }
     public void setZoneName(String zoneName) { this.zoneName = zoneName; }
-
     public Instant getRestoredAt() { return restoredAt; }
     public void setRestoredAt(Instant restoredAt) { this.restoredAt = restoredAt; }
 }
