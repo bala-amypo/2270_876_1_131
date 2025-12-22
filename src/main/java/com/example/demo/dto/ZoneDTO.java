@@ -1,19 +1,11 @@
 package com.example.demo.dto;
 
-import lombok.*;
-import java.time.Instant;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class ZoneDTO {
-    private Long id;
-    private String zoneName;
-    private Integer priorityLevel;
-    private Integer population;
-    private Boolean active;
-    private Instant createdAt;
-    private Instant updatedAt;
+    private String name;
+
+    public ZoneDTO() {}
+    public ZoneDTO(String name) { this.name = name; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 }

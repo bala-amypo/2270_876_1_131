@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
 
 @Entity
@@ -10,17 +11,9 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class AppUser {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true)
     private String email;
-
     private String password;
-
     private String role;
-
-    private Boolean active;
 }

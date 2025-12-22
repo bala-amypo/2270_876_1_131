@@ -1,57 +1,20 @@
 package com.example.demo.entity;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.*;
+
 import java.sql.Timestamp;
 
-// @Table(name = "demand_readings")
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class DemandReading {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "zone_id", nullable = false)
-    private Zone zone;
-
-    @Column(nullable = false)
-    private Double demandMW;
-
-    @Column(nullable = false)
-    private Timestamp recordedAt;
-
-    public DemandReading() {}
-
-    public DemandReading(Zone zone, Double demandMW, Timestamp recordedAt) {
-        this.zone = zone;
-        this.demandMW = demandMW;
-        this.recordedAt = recordedAt;
-    }
-
-    public Long getId() { 
-        return id; 
-    }
-
-    public Zone getZone() { 
-        return zone; 
-    }
-
-    public void setZone(Zone zone) { 
-        this.zone = zone; 
-    }
-
-    public Double getDemandMW() { 
-        return demandMW; 
-    }
-
-    public void setDemandMW(Double demandMW) { 
-        this.demandMW = demandMW; 
-    }
-
-    public Timestamp getRecordedAt() { 
-        return recordedAt; 
-    }
-    public void setRecordedAt(Timestamp recordedAt) { 
-        this.recordedAt = recordedAt; 
-    }
+    private Timestamp timestamp;
+    private double value;
 }
