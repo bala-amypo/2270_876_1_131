@@ -1,20 +1,27 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.*;
-
-import java.sql.Timestamp;
-
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class SupplyForecast {
-    @Id
     private Long id;
-    private Timestamp forecastTime;
-    private double supplyValue;
+    private String zoneName;
+    private Double forecastValue;
+
+    // Default constructor
+    public SupplyForecast() {}
+
+    // Parameterized constructor
+    public SupplyForecast(Long id, String zoneName, Double forecastValue) {
+        this.id = id;
+        this.zoneName = zoneName;
+        this.forecastValue = forecastValue;
+    }
+
+    // Getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getZoneName() { return zoneName; }
+    public void setZoneName(String zoneName) { this.zoneName = zoneName; }
+
+    public Double getForecastValue() { return forecastValue; }
+    public void setForecastValue(Double forecastValue) { this.forecastValue = forecastValue; }
 }
