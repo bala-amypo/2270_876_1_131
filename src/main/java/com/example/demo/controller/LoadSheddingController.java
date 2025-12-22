@@ -2,7 +2,7 @@ package com.example.demo.entity;
 
 import java.time.Instant;
 
-public class LoadSheddingEvent {
+public class LoadSheddingController {
     private Long id;
     private String zoneName;
     private Instant startTime;

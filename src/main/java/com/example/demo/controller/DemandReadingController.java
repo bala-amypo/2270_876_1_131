@@ -2,7 +2,7 @@ package com.example.demo.entity;
 
 import java.time.Instant;
 
-public class DemandReading {
+public class DemandReadingController {
     private Long id;
     private double value;
     private Instant recordedAt;
