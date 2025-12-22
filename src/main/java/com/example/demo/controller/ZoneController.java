@@ -1,32 +1,31 @@
-package com.example.demo.controller;
+package com.example.demo.entity;
 
-import com.example.demo.dto.ZoneDTO;
-import com.example.demo.entity.Zone;
-import com.example.demo.service.ZoneService;
-import org.springframework.web.bind.annotation.*;
+import java.time.Instant;
 
-@RestController
-@RequestMapping("/zones")
-public class ZoneController {
+public class Zone {
+    private Long id;
+    private String name;
+    private Instant createdAt;
+    private Instant updatedAt;
 
-    private final ZoneService zoneService;
+    public Zone() {}
 
-    public ZoneController(ZoneService zoneService) {
-        this.zoneService = zoneService;
+    public Zone(Long id, String name) {
+        this.id = id;
+        this.name = name;
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
     }
 
-    @PostMapping("/create")
-    public Zone createZone(@RequestBody ZoneDTO dto) {
-        Zone zone = Zone.builder()
-                .id(System.currentTimeMillis())
-                .name(dto.getName())
-                .build();
-        return zoneService.createZone(zone);
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    @PutMapping("/update/{id}")
-    public Zone updateZone(@PathVariable Long id, @RequestBody ZoneDTO dto) {
-        Zone zone = Zone.builder().name(dto.getName()).build();
-        return zoneService.updateZone(id, zone);
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public Instant getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
+
+    public Instant getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(Instant updatedAt) { this.updatedAt = updatedAt; }
 }
