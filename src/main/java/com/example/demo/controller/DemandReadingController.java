@@ -1,26 +1,45 @@
-package com.example.demo.entity;
+package com.example.demo.controller;
 
-import java.time.Instant;
+import com.example.demo.entity.DemandReading;
+import com.example.demo.service.DemandReadingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/demand-readings")
 public class DemandReadingController {
-    private Long id;
-    private double value;
-    private Instant recordedAt;
 
-    public DemandReading() {}
+    private final DemandReadingService demandReadingService;
 
-    public DemandReading(Long id, double value, Instant recordedAt) {
-        this.id = id;
-        this.value = value;
-        this.recordedAt = recordedAt;
+    @Autowired
+    public DemandReadingController(DemandReadingService demandReadingService) {
+        this.demandReadingService = demandReadingService;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @GetMapping
+    public List<DemandReading> getAllReadings() {
+        return demandReadingService.getAllReadings();
+    }
 
-    public double getValue() { return value; }
-    public void setValue(double value) { this.value = value; }
+    @GetMapping("/{id}")
+    public DemandReading getReadingById(@PathVariable Long id) {
+        return demandReadingService.getReadingById(id);
+    }
 
-    public Instant getRecordedAt() { return recordedAt; }
-    public void setRecordedAt(Instant recordedAt) { this.recordedAt = recordedAt; }
+    @PostMapping
+    public DemandReading createReading(@RequestBody DemandReading reading) {
+        return demandReadingService.createReading(reading);
+    }
+
+    @PutMapping("/{id}")
+    public DemandReading updateReading(@PathVariable Long id, @RequestBody DemandReading reading) {
+        return demandReadingService.updateReading(id, reading);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteReading(@PathVariable Long id) {
+        demandReadingService.deleteReading(id);
+    }
 }

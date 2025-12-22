@@ -1,31 +1,45 @@
-package com.example.demo.entity;
+package com.example.demo.controller;
 
-import java.time.Instant;
+import com.example.demo.entity.LoadSheddingEvent;
+import com.example.demo.service.LoadSheddingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/load-shedding")
 public class LoadSheddingController {
-    private Long id;
-    private String zoneName;
-    private Instant startTime;
-    private Instant endTime;
 
-    public LoadSheddingEvent() {}
+    private final LoadSheddingService loadSheddingService;
 
-    public LoadSheddingEvent(Long id, String zoneName, Instant startTime, Instant endTime) {
-        this.id = id;
-        this.zoneName = zoneName;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    @Autowired
+    public LoadSheddingController(LoadSheddingService loadSheddingService) {
+        this.loadSheddingService = loadSheddingService;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @GetMapping
+    public List<LoadSheddingEvent> getAllEvents() {
+        return loadSheddingService.getAllEvents();
+    }
 
-    public String getZoneName() { return zoneName; }
-    public void setZoneName(String zoneName) { this.zoneName = zoneName; }
+    @GetMapping("/{id}")
+    public LoadSheddingEvent getEventById(@PathVariable Long id) {
+        return loadSheddingService.getEventById(id);
+    }
 
-    public Instant getStartTime() { return startTime; }
-    public void setStartTime(Instant startTime) { this.startTime = startTime; }
+    @PostMapping
+    public LoadSheddingEvent createEvent(@RequestBody LoadSheddingEvent event) {
+        return loadSheddingService.createEvent(event);
+    }
 
-    public Instant getEndTime() { return endTime; }
-    public void setEndTime(Instant endTime) { this.endTime = endTime; }
+    @PutMapping("/{id}")
+    public LoadSheddingEvent updateEvent(@PathVariable Long id, @RequestBody LoadSheddingEvent event) {
+        return loadSheddingService.updateEvent(id, event);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteEvent(@PathVariable Long id) {
+        loadSheddingService.deleteEvent(id);
+    }
 }
