@@ -1,18 +1,25 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.AppUser;
-import com.example.demo.security.JwtTokenProvider;
-import lombok.RequiredArgsConstructor;
+import com.example.demo.service.AppUserService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
-@RequiredArgsConstructor
-public class AppUserServiceImpl {
+public class AppUserServiceImpl implements AppUserService {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final Map<String, AppUser> users = new HashMap<>();
 
-    public String login(AppUser user) {
-        String token = jwtTokenProvider.createToken(user);
-        return token;
+    @Override
+    public AppUser createUser(AppUser user) {
+        users.put(user.getEmail(), user);
+        return user;
+    }
+
+    @Override
+    public AppUser getUserByEmail(String email) {
+        return users.get(email);
     }
 }
