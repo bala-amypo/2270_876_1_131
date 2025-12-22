@@ -4,7 +4,6 @@ import com.example.demo.dto.AuthResponse;
 import com.example.demo.entity.AppUser;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.repository.AppUserRepository;
-import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.AppUserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -12,14 +11,13 @@ public class AppUserServiceImpl implements AppUserService {
 
     private final AppUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtTokenProvider jwtTokenProvider;
 
     public AppUserServiceImpl(AppUserRepository userRepository,
                               PasswordEncoder passwordEncoder,
                               JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.jwtTokenProvider = jwtTokenProvider;
+      
     }
 
     @Override
