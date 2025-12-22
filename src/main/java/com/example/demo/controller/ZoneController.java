@@ -1,31 +1,38 @@
-package com.example.demo.entity;
+package com.example.demo.controller;
 
-import java.time.Instant;
+import com.example.demo.entity.Zone;
+import com.example.demo.service.ZoneService;
+import org.springframework.web.bind.annotation.*;
 
-public class Zone {
-    private Long id;
-    private String name;
-    private Instant createdAt;
-    private Instant updatedAt;
+import java.util.List;
 
-    public Zone() {}
+@RestController
+@RequestMapping("/zones")
+public class ZoneController {
 
-    public Zone(Long id, String name) {
-        this.id = id;
-        this.name = name;
-        this.createdAt = Instant.now();
-        this.updatedAt = Instant.now();
+    private final ZoneService zoneService;
+
+    public ZoneController(ZoneService zoneService) {
+        this.zoneService = zoneService;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @PostMapping("/create")
+    public Zone createZone(@RequestBody Zone zone) {
+        return zoneService.createZone(zone);
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    @PutMapping("/update/{id}")
+    public Zone updateZone(@PathVariable Long id, @RequestBody Zone zone) {
+        return zoneService.updateZone(id, zone);
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
+    @DeleteMapping("/deactivate/{id}")
+    public void deactivateZone(@PathVariable Long id) {
+        zoneService.deactivateZone(id);
+    }
 
-    public Instant getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(Instant updatedAt) { this.updatedAt = updatedAt; }
+    @GetMapping("/all")
+    public List<Zone> getAllZones() {
+        return zoneService.getAllZones();
+    }
 }

@@ -1,17 +1,25 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.ZoneRestoration;
+import com.example.demo.service.ZoneRestorationService;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
-public class ZoneRestorationServiceImpl {
+public class ZoneRestorationServiceImpl implements ZoneRestorationService {
 
-    public void validate(ZoneRestoration restoration) {
-        Instant now = Instant.now();
-        if (restoration.getRestoredAt().isAfter(now)) {
-            throw new IllegalArgumentException("RestoredAt cannot be in the future");
-        }
+    private final List<ZoneRestoration> restorations = new ArrayList<>();
+
+    @Override
+    public ZoneRestoration create(ZoneRestoration restoration) {
+        restorations.add(restoration);
+        return restoration;
+    }
+
+    @Override
+    public List<ZoneRestoration> getAll() {
+        return restorations;
     }
 }

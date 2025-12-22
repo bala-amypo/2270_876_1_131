@@ -1,26 +1,38 @@
-package com.example.demo.entity;
+package com.example.demo.controller;
 
-import java.time.Instant;
+import com.example.demo.entity.Zone;
+import com.example.demo.service.ZoneService;
+import org.springframework.web.bind.annotation.*;
 
-public class ZoneRestoration {
-    private Long id;
-    private String zoneName;
-    private Instant restoredAt;
+import java.util.List;
 
-    public ZoneRestoration() {}
+@RestController
+@RequestMapping("/zones")
+public class ZoneController {
 
-    public ZoneRestoration(Long id, String zoneName, Instant restoredAt) {
-        this.id = id;
-        this.zoneName = zoneName;
-        this.restoredAt = restoredAt;
+    private final ZoneService zoneService;
+
+    public ZoneController(ZoneService zoneService) {
+        this.zoneService = zoneService;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @PostMapping("/create")
+    public Zone createZone(@RequestBody Zone zone) {
+        return zoneService.createZone(zone);
+    }
 
-    public String getZoneName() { return zoneName; }
-    public void setZoneName(String zoneName) { this.zoneName = zoneName; }
+    @PutMapping("/update/{id}")
+    public Zone updateZone(@PathVariable Long id, @RequestBody Zone zone) {
+        return zoneService.updateZone(id, zone);
+    }
 
-    public Instant getRestoredAt() { return restoredAt; }
-    public void setRestoredAt(Instant restoredAt) { this.restoredAt = restoredAt; }
+    @DeleteMapping("/deactivate/{id}")
+    public void deactivateZone(@PathVariable Long id) {
+        zoneService.deactivateZone(id);
+    }
+
+    @GetMapping("/all")
+    public List<Zone> getAllZones() {
+        return zoneService.getAllZones();
+    }
 }
