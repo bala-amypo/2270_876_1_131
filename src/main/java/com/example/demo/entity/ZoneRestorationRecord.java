@@ -1,18 +1,9 @@
-package com.example.demo.entity;
+package com.example.demo.repository;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.*;
+import com.example.demo.entity.ZoneRestoration;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class ZoneRestoration {
-    @Id
-    private Long id;
-    private String zoneName;
-    private java.time.Instant restoredAt;
+@Repository
+public interface ZoneRestorationRepository extends JpaRepository<ZoneRestoration, Long> {
 }
