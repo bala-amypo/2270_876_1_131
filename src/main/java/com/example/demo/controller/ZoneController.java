@@ -1,13 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ZoneDTO;
 import com.example.demo.entity.Zone;
 import com.example.demo.service.ZoneService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/zones")
+@RequestMapping("/zones")
 public class ZoneController {
 
     private final ZoneService zoneService;
@@ -16,28 +15,18 @@ public class ZoneController {
         this.zoneService = zoneService;
     }
 
-    @PostMapping
-    public Zone createZone(@RequestBody Zone zone) {
+    @PostMapping("/create")
+    public Zone createZone(@RequestBody ZoneDTO dto) {
+        Zone zone = Zone.builder()
+                .id(System.currentTimeMillis())
+                .name(dto.getName())
+                .build();
         return zoneService.createZone(zone);
     }
 
-    @PutMapping("/{id}")
-    public Zone updateZone(@PathVariable Long id, @RequestBody Zone zone) {
+    @PutMapping("/update/{id}")
+    public Zone updateZone(@PathVariable Long id, @RequestBody ZoneDTO dto) {
+        Zone zone = Zone.builder().name(dto.getName()).build();
         return zoneService.updateZone(id, zone);
-    }
-
-    @GetMapping("/{id}")
-    public Zone getZone(@PathVariable Long id) {
-        return zoneService.getZoneById(id);
-    }
-
-    @GetMapping
-    public List<Zone> getAllZones() {
-        return zoneService.getAllZones();
-    }
-
-    @PutMapping("/{id}/deactivate")
-    public void deactivateZone(@PathVariable Long id) {
-        zoneService.deactivateZone(id);
     }
 }
