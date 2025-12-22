@@ -1,38 +1,45 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Zone;
-import com.example.demo.service.ZoneService;
+import com.example.demo.entity.ZoneRestoration;
+import com.example.demo.service.ZoneRestorationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/zones")
-public class ZoneController {
+@RequestMapping("/api/zone-restorations")
+public class ZoneRestorationController {
 
-    private final ZoneService zoneService;
+    private final ZoneRestorationService zoneRestorationService;
 
-    public ZoneController(ZoneService zoneService) {
-        this.zoneService = zoneService;
+    @Autowired
+    public ZoneRestorationController(ZoneRestorationService zoneRestorationService) {
+        this.zoneRestorationService = zoneRestorationService;
     }
 
-    @PostMapping("/create")
-    public Zone createZone(@RequestBody Zone zone) {
-        return zoneService.createZone(zone);
+    @GetMapping
+    public List<ZoneRestoration> getAllRestorations() {
+        return zoneRestorationService.getAllRestorations();
     }
 
-    @PutMapping("/update/{id}")
-    public Zone updateZone(@PathVariable Long id, @RequestBody Zone zone) {
-        return zoneService.updateZone(id, zone);
+    @GetMapping("/{id}")
+    public ZoneRestoration getRestorationById(@PathVariable Long id) {
+        return zoneRestorationService.getRestorationById(id);
     }
 
-    @DeleteMapping("/deactivate/{id}")
-    public void deactivateZone(@PathVariable Long id) {
-        zoneService.deactivateZone(id);
+    @PostMapping
+    public ZoneRestoration createRestoration(@RequestBody ZoneRestoration restoration) {
+        return zoneRestorationService.createRestoration(restoration);
     }
 
-    @GetMapping("/all")
-    public List<Zone> getAllZones() {
-        return zoneService.getAllZones();
+    @PutMapping("/{id}")
+    public ZoneRestoration updateRestoration(@PathVariable Long id, @RequestBody ZoneRestoration restoration) {
+        return zoneRestorationService.updateRestoration(id, restoration);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteRestoration(@PathVariable Long id) {
+        zoneRestorationService.deleteRestoration(id);
     }
 }
