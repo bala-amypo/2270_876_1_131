@@ -6,7 +6,7 @@ import java.util.List;
 public interface ZoneRestorationService {
     List<ZoneRestoration> getAllRestorations();
     ZoneRestoration getRestorationById(Long id);
-    ZoneRestoration saveRestoration(ZoneRestoration zoneRestoration);
+    ZoneRestoration createRestoration(ZoneRestoration zoneRestoration);
     ZoneRestoration updateRestoration(Long id, ZoneRestoration zoneRestoration);
     void deleteRestoration(Long id);
 }

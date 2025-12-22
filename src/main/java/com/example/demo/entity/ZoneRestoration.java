@@ -10,7 +10,6 @@ public class ZoneRestoration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String zoneName;
     private Instant restoredAt;
 
