@@ -1,33 +1,26 @@
-package com.example.demo.controller;
+package com.example.demo.entity;
 
-import com.example.demo.entity.ZoneRestorationRecord;
-import com.example.demo.service.ZoneRestorationService;
-import org.springframework.web.bind.annotation.*;
+import java.time.Instant;
 
-import java.util.List;
+public class ZoneRestoration {
+    private Long id;
+    private String zoneName;
+    private Instant restoredAt;
 
-@RestController
-@RequestMapping("/api/restorations")
-public class ZoneRestorationController {
+    public ZoneRestoration() {}
 
-    private final ZoneRestorationService zoneRestorationService;
-
-    public ZoneRestorationController(ZoneRestorationService zoneRestorationService) {
-        this.zoneRestorationService = zoneRestorationService;
+    public ZoneRestoration(Long id, String zoneName, Instant restoredAt) {
+        this.id = id;
+        this.zoneName = zoneName;
+        this.restoredAt = restoredAt;
     }
 
-    @PostMapping
-    public ZoneRestorationRecord restoreZone(@RequestBody ZoneRestorationRecord record) {
-        return zoneRestorationService.restoreZone(record);
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    @GetMapping("/{id}")
-    public ZoneRestorationRecord getRecord(@PathVariable Long id) {
-        return zoneRestorationService.getRecordById(id);
-    }
+    public String getZoneName() { return zoneName; }
+    public void setZoneName(String zoneName) { this.zoneName = zoneName; }
 
-    @GetMapping("/zone/{zoneId}")
-    public List<ZoneRestorationRecord> getRecordsForZone(@PathVariable Long zoneId) {
-        return zoneRestorationService.getRecordsForZone(zoneId);
-    }
+    public Instant getRestoredAt() { return restoredAt; }
+    public void setRestoredAt(Instant restoredAt) { this.restoredAt = restoredAt; }
 }

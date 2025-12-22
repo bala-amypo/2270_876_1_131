@@ -1,43 +1,31 @@
-package com.example.demo.controller;
+package com.example.demo.entity;
 
-import com.example.demo.entity.SupplyForecast;
-import com.example.demo.service.SupplyForecastService;
-import org.springframework.web.bind.annotation.*;
+import java.time.Instant;
 
-import java.util.List;
+public class SupplyForecast {
+    private Long id;
+    private double value;
+    private Instant forecastStart;
+    private Instant forecastEnd;
 
-@RestController
-@RequestMapping("/api/supply-forecasts")
-public class SupplyForecastController {
+    public SupplyForecast() {}
 
-    private final SupplyForecastService supplyForecastService;
-
-    public SupplyForecastController(SupplyForecastService supplyForecastService) {
-        this.supplyForecastService = supplyForecastService;
+    public SupplyForecast(Long id, double value, Instant forecastStart, Instant forecastEnd) {
+        this.id = id;
+        this.value = value;
+        this.forecastStart = forecastStart;
+        this.forecastEnd = forecastEnd;
     }
 
-    @PostMapping
-    public SupplyForecast createForecast(@RequestBody SupplyForecast forecast) {
-        return supplyForecastService.createForecast(forecast);
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    @PutMapping("/{id}")
-    public SupplyForecast updateForecast(@PathVariable Long id, @RequestBody SupplyForecast forecast) {
-        return supplyForecastService.updateForecast(id, forecast);
-    }
+    public double getValue() { return value; }
+    public void setValue(double value) { this.value = value; }
 
-    @GetMapping("/{id}")
-    public SupplyForecast getForecast(@PathVariable Long id) {
-        return supplyForecastService.getForecastById(id);
-    }
+    public Instant getForecastStart() { return forecastStart; }
+    public void setForecastStart(Instant forecastStart) { this.forecastStart = forecastStart; }
 
-    @GetMapping("/latest")
-    public SupplyForecast getLatestForecast() {
-        return supplyForecastService.getLatestForecast();
-    }
-
-    @GetMapping
-    public List<SupplyForecast> getAllForecasts() {
-        return supplyForecastService.getAllForecasts();
-    }
+    public Instant getForecastEnd() { return forecastEnd; }
+    public void setForecastEnd(Instant forecastEnd) { this.forecastEnd = forecastEnd; }
 }

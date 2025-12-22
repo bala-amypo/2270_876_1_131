@@ -1,38 +1,31 @@
-package com.example.demo.controller;
+package com.example.demo.entity;
 
-import com.example.demo.entity.LoadSheddingEvent;
-import com.example.demo.service.LoadSheddingService;
-import org.springframework.web.bind.annotation.*;
+import java.time.Instant;
 
-import java.util.List;
+public class LoadSheddingEvent {
+    private Long id;
+    private String zoneName;
+    private Instant startTime;
+    private Instant endTime;
 
-@RestController
-@RequestMapping("/api/load-shedding")
-public class LoadSheddingController {
+    public LoadSheddingEvent() {}
 
-    private final LoadSheddingService loadSheddingService;
-
-    public LoadSheddingController(LoadSheddingService loadSheddingService) {
-        this.loadSheddingService = loadSheddingService;
+    public LoadSheddingEvent(Long id, String zoneName, Instant startTime, Instant endTime) {
+        this.id = id;
+        this.zoneName = zoneName;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
-    @PostMapping("/trigger/{forecastId}")
-    public LoadSheddingEvent triggerLoadShedding(@PathVariable Long forecastId) {
-        return loadSheddingService.triggerLoadShedding(forecastId);
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    @GetMapping("/{id}")
-    public LoadSheddingEvent getEvent(@PathVariable Long id) {
-        return loadSheddingService.getEventById(id);
-    }
+    public String getZoneName() { return zoneName; }
+    public void setZoneName(String zoneName) { this.zoneName = zoneName; }
 
-    @GetMapping("/zone/{zoneId}")
-    public List<LoadSheddingEvent> getEventsForZone(@PathVariable Long zoneId) {
-        return loadSheddingService.getEventsForZone(zoneId);
-    }
+    public Instant getStartTime() { return startTime; }
+    public void setStartTime(Instant startTime) { this.startTime = startTime; }
 
-    @GetMapping
-    public List<LoadSheddingEvent> getAllEvents() {
-        return loadSheddingService.getAllEvents();
-    }
+    public Instant getEndTime() { return endTime; }
+    public void setEndTime(Instant endTime) { this.endTime = endTime; }
 }
