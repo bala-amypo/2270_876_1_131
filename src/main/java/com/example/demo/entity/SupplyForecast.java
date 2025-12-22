@@ -5,17 +5,14 @@ public class SupplyForecast {
     private String zoneName;
     private Double forecastValue;
 
-    // Default constructor
     public SupplyForecast() {}
 
-    // Parameterized constructor
     public SupplyForecast(Long id, String zoneName, Double forecastValue) {
         this.id = id;
         this.zoneName = zoneName;
         this.forecastValue = forecastValue;
     }
 
-    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
