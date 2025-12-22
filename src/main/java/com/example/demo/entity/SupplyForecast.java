@@ -12,10 +12,22 @@ public class SupplyForecast {
         this.forecastValue = forecastValue;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getZoneName() { return zoneName; }
-    public void setZoneName(String zoneName) { this.zoneName = zoneName; }
-    public Double getForecastValue() { return forecastValue; }
-    public void setForecastValue(Double forecastValue) { this.forecastValue = forecastValue; }
+    public Long getId() { 
+        return id; 
+    }
+    public void setId(Long id) { 
+        this.id = id;
+    }
+    public String getZoneName() { 
+        return zoneName; 
+    }
+    public void setZoneName(String zoneName) { 
+        this.zoneName = zoneName; 
+    }
+    public Double getForecastValue() { 
+        return forecastValue; 
+    }
+    public void setForecastValue(Double forecastValue) { 
+        this.forecastValue = forecastValue; 
+    }
 }
