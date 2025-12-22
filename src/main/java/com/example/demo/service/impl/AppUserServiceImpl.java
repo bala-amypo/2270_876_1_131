@@ -45,7 +45,6 @@ public class AppUserServiceImpl implements AppUserService {
             throw new BadRequestException("Invalid credentials");
         }
 
-        String token = jwtTokenProvider.createToken(user);
 
         return new AuthResponse(
                 token,
