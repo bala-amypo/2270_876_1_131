@@ -19,6 +19,6 @@ public class LoadSheddingServiceImpl implements LoadSheddingService {
 
     @Override
     public void deleteEvent(Long id) {
-        // delete logic
+    
     }
 }
