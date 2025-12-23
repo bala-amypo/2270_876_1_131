@@ -1,33 +1,24 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import java.time.LocalDateTime;
+
+@Entity
 public class SupplyForecast {
+
+    @Id
     private Long id;
-    private String zoneName;
-    private Double forecastValue;
+    private LocalDateTime forecastStart;
+    private LocalDateTime forecastEnd;
 
     public SupplyForecast() {}
-    public SupplyForecast(Long id, String zoneName, Double forecastValue) {
-        this.id = id;
-        this.zoneName = zoneName;
-        this.forecastValue = forecastValue;
+
+    public LocalDateTime getForecastStart() {
+        return forecastStart;
     }
 
-    public Long getId() { 
-        return id; 
-    }
-    public void setId(Long id) { 
-        this.id = id;
-    }
-    public String getZoneName() { 
-        return zoneName; 
-    }
-    public void setZoneName(String zoneName) { 
-        this.zoneName = zoneName; 
-    }
-    public Double getForecastValue() { 
-        return forecastValue; 
-    }
-    public void setForecastValue(Double forecastValue) { 
-        this.forecastValue = forecastValue; 
+    public LocalDateTime getForecastEnd() {
+        return forecastEnd;
     }
 }

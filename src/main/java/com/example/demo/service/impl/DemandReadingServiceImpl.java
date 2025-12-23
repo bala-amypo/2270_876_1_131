@@ -9,7 +9,7 @@ public class DemandReadingServiceImpl implements DemandReadingService {
 
     @Override
     public DemandReading createReading(DemandReading reading) {
-        reading.getRecordedAt(); // now exists
+        reading.getRecordedAt();
         return reading;
     }
 }

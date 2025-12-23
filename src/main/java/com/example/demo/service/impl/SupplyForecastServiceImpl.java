@@ -1,14 +1,16 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.SupplyForecast;
+import com.example.demo.service.SupplyForecastService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SupplyForecastServiceImpl {
+public class SupplyForecastServiceImpl implements SupplyForecastService {
 
-    public void validate(SupplyForecast forecast) {
-        if (!forecast.getForecastStart().isBefore(forecast.getForecastEnd())) {
-            throw new IllegalArgumentException("Invalid forecast range");
-        }
+    @Override
+    public SupplyForecast createForecast(SupplyForecast forecast) {
+        forecast.getForecastStart();
+        forecast.getForecastEnd();
+        return forecast;
     }
 }
