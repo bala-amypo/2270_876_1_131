@@ -15,7 +15,12 @@ public class SupplyForecastController {
     }
 
     @PostMapping
-    public SupplyForecast create(@RequestBody SupplyForecast forecast) {
-        return service.createForecast(forecast);
+    public SupplyForecast createForecast(@RequestBody SupplyForecast forecast) {
+        return service.saveForecast(forecast);
+    }
+
+    @GetMapping("/latest")
+    public SupplyForecast getLatestForecast() {
+        return service.getLatestForecast().orElse(null);
     }
 }
