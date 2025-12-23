@@ -1,46 +1,44 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.Zone;
+import com.example.demo.repository.ZoneRepository;
 import com.example.demo.service.ZoneService;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ZoneServiceImpl implements ZoneService {
 
-    private final List<Zone> zones = new ArrayList<>();
+    private final ZoneRepository zoneRepository;
+
+    public ZoneServiceImpl(ZoneRepository zoneRepository) {
+        this.zoneRepository = zoneRepository;
+    }
 
     @Override
     public Zone createZone(Zone zone) {
         zone.setCreatedAt(Instant.now());
         zone.setUpdatedAt(Instant.now());
-        zones.add(zone);
-        return zone;
+        return zoneRepository.save(zone);
     }
 
     @Override
     public Zone updateZone(Long id, Zone zone) {
-        Optional<Zone> existingOpt = zones.stream().filter(z -> z.getId().equals(id)).findFirst();
-        if (existingOpt.isPresent()) {
-            Zone existing = existingOpt.get();
-            existing.setUpdatedAt(Instant.now());
-            existing.setName(zone.getName());
-            return existing;
-        }
-        return null;
-    }
+        Zone existing = zoneRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Zone not found"));
 
-    @Override
-    public void deactivateZone(Long id) {
-        zones.removeIf(z -> z.getId().equals(id));
+        existing.setZoneName(zone.getZoneName());   // ✅ FIX HERE
+        existing.setRegion(zone.getRegion());
+        existing.setActive(zone.isActive());
+        existing.setUpdatedAt(Instant.now());
+
+        return zoneRepository.save(existing);
     }
 
     @Override
     public List<Zone> getAllZones() {
-        return zones;
+        return zoneRepository.findAll();
     }
 }
