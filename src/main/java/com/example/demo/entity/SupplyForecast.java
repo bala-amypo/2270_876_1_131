@@ -17,12 +17,10 @@ public class SupplyForecast {
 
     private LocalDateTime generatedAt;
 
-    // Default constructor
     public SupplyForecast() {
         this.generatedAt = LocalDateTime.now();
     }
 
-    // Parameterized constructor
     public SupplyForecast(String zoneName, double predictedLoad, double availableSupply) {
         this.zoneName = zoneName;
         this.predictedLoad = predictedLoad;
@@ -30,7 +28,6 @@ public class SupplyForecast {
         this.generatedAt = LocalDateTime.now();
     }
 
-    // Getters & Setters
     public Long getId() {
         return id;
     }
@@ -61,9 +58,5 @@ public class SupplyForecast {
 
     public LocalDateTime getGeneratedAt() {
         return generatedAt;
-    }
-
-    public void setGeneratedAt(LocalDateTime generatedAt) {
-        this.generatedAt = generatedAt;
     }
 }
