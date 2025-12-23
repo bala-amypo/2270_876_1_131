@@ -12,3 +12,4 @@ public interface DemandReadingRepository extends JpaRepository<DemandReading, Lo
 
     List<DemandReading> findByZoneIdOrderByRecordedAtDesc(Long zoneId);
 }
+
