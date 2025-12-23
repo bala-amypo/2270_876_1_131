@@ -21,7 +21,7 @@ public class LoadSheddingController {
 
     @PutMapping("/{id}")
     public LoadSheddingEvent update(@PathVariable Long id,
-                                    @RequestBody LoadSheddingEvent event) {
+        @RequestBody LoadSheddingEvent event) {
         return service.updateEvent(id, event);
     }
 

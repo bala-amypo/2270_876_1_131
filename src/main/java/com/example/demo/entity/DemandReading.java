@@ -10,7 +10,7 @@ public class DemandReading {
     @Id
     private Long id;
 
-    private Long zoneId;          // ✅ ADD THIS
+    private Long zoneId;         
     private Double demand;
     private LocalDateTime recordedAt;
 
