@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.time.Instant;
 
 @Entity
 @Table(name = "zones")
@@ -16,13 +17,12 @@ public class Zone {
     private String region;
     private boolean active;
 
-    public Zone() {
-    }
+    private Instant createdAt;
+    private Instant updatedAt;
 
-    public Zone(String zoneName, String region, boolean active) {
-        this.zoneName = zoneName;
-        this.region = region;
-        this.active = active;
+    public Zone() {
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
     }
 
     public Long getId() {
@@ -51,5 +51,21 @@ public class Zone {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
