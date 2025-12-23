@@ -21,6 +21,7 @@ public class ZoneServiceImpl implements ZoneService {
     public Zone createZone(Zone zone) {
         zone.setCreatedAt(Instant.now());
         zone.setUpdatedAt(Instant.now());
+        zone.setActive(true);
         return zoneRepository.save(zone);
     }
 
@@ -29,7 +30,7 @@ public class ZoneServiceImpl implements ZoneService {
         Zone existing = zoneRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Zone not found"));
 
-        existing.setZoneName(zone.getZoneName());   // ✅ FIX HERE
+        existing.setZoneName(zone.getZoneName());
         existing.setRegion(zone.getRegion());
         existing.setActive(zone.isActive());
         existing.setUpdatedAt(Instant.now());
@@ -40,5 +41,15 @@ public class ZoneServiceImpl implements ZoneService {
     @Override
     public List<Zone> getAllZones() {
         return zoneRepository.findAll();
+    }
+
+    @Override
+    public void deactivateZone(Long id) {
+        Zone zone = zoneRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Zone not found"));
+
+        zone.setActive(false);
+        zone.setUpdatedAt(Instant.now());
+        zoneRepository.save(zone);
     }
 }
