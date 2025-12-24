@@ -1,22 +1,20 @@
-package com.example.demo.repository;
+package com.example.demo.service.impl;
 
 import com.example.demo.entity.AppUser;
 import com.example.demo.entity.Role;
+import com.example.demo.service.AppUserService;
+import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
-public class AppUserRepositoryImpl implements AppUserRepository {
+@Service
+public class AppUserServiceImpl implements AppUserService {
 
     @Override
-    public Optional<AppUser> findByEmail(String email) {
-        return Optional.of(
-                AppUser.builder()
-                        .id(1L)
-                        .email(email)
-                        .password("{noop}password")
-                        .active(true)
-                        .role(Role.ROLE_USER)
-                        .build()
-        );
+    public AppUser createUser(String email, String password) {
+        AppUser user = new AppUser();
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setActive(true);
+        user.setRole(Role.ROLE_USER);
+        return user;
     }
 }

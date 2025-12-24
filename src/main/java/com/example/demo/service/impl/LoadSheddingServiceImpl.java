@@ -1,63 +1,22 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.*;
-import com.example.demo.exception.*;
-import com.example.demo.repository.*;
-import java.util.*;
+import com.example.demo.entity.LoadSheddingEvent;
+import com.example.demo.entity.Zone;
+import com.example.demo.service.LoadSheddingService;
+import org.springframework.stereotype.Service;
 
-public class LoadSheddingServiceImpl {
+import java.time.Instant;
 
-    private final SupplyForecastRepository forecastRepo;
-    private final ZoneRepository zoneRepo;
-    private final DemandReadingRepository readingRepo;
-    private final LoadSheddingEventRepository eventRepo;
+@Service
+public class LoadSheddingServiceImpl implements LoadSheddingService {
 
-    public LoadSheddingServiceImpl(
-            SupplyForecastRepository f,
-            ZoneRepository z,
-            DemandReadingRepository r,
-            LoadSheddingEventRepository e) {
-        forecastRepo = f;
-        zoneRepo = z;
-        readingRepo = r;
-        eventRepo = e;
-    }
-
-    public LoadSheddingEvent triggerLoadShedding(Long forecastId) {
-        SupplyForecast f = forecastRepo.findById(forecastId)
-                .orElseThrow(() -> new ResourceNotFoundException("Forecast not found"));
-
-        List<Zone> zones = zoneRepo.findByActiveTrueOrderByPriorityLevelAsc();
-        if (zones.isEmpty())
-            throw new BadRequestException("No overload");
-
-        for (Zone z : zones) {
-            Optional<DemandReading> dr =
-                    readingRepo.findFirstByZoneIdOrderByRecordedAtDesc(z.getId());
-
-            if (dr.isPresent() && dr.get().getDemandMW() > f.getAvailableSupplyMW()) {
-                return eventRepo.save(
-                        LoadSheddingEvent.builder()
-                                .zone(z)
-                                .expectedDemandReductionMW(dr.get().getDemandMW())
-                                .reason("Overload")
-                                .build()
-                );
-            }
-        }
-        throw new BadRequestException("No suitable");
-    }
-
-    public List<LoadSheddingEvent> getAllEvents() {
-        return eventRepo.findAll();
-    }
-
-    public LoadSheddingEvent getEventById(Long id) {
-        return eventRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
-    }
-
-    public List<LoadSheddingEvent> getEventsForZone(Long id) {
-        return eventRepo.findByZoneIdOrderByEventStartDesc(id);
+    @Override
+    public LoadSheddingEvent createEvent(Zone zone, double demand, double supply) {
+        LoadSheddingEvent event = new LoadSheddingEvent();
+        event.setZone(zone);
+        event.setDemandMW(demand);
+        event.setSupplyMW(supply);
+        event.setEventStart(Instant.now());
+        return event;
     }
 }
