@@ -8,9 +8,13 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoadSheddingEvent {
+
     private Long id;
     private Zone zone;
     private Double expectedDemandReductionMW;
+
+    @Builder.Default
     private Instant eventStart = Instant.now();
+
     private String reason;
 }

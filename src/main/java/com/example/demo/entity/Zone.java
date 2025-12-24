@@ -8,10 +8,14 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Zone {
+
     private Long id;
     private String zoneName;
     private Integer priorityLevel;
     private Integer population;
+
+    @Builder.Default
     private Boolean active = true;
+
     private Instant updatedAt;
 }

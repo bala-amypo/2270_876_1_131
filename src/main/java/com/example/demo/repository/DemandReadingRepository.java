@@ -1,10 +1,10 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.DemandReading;
 import java.util.*;
-import com.example.demo.entity.*;
 
 public interface DemandReadingRepository {
-    Optional<DemandReading> findFirstByZoneIdOrderByRecordedAtDesc(Long id);
-    List<DemandReading> findByZoneIdOrderByRecordedAtDesc(Long id);
-    DemandReading save(DemandReading r);
+    Optional<DemandReading> findFirstByZoneIdOrderByRecordedAtDesc(Long zoneId);
+    List<DemandReading> findByZoneIdOrderByRecordedAtDesc(Long zoneId);
+    DemandReading save(DemandReading reading);
 }

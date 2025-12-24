@@ -8,9 +8,12 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SupplyForecast {
+
     private Long id;
     private Double availableSupplyMW;
     private Instant forecastStart;
     private Instant forecastEnd;
+
+    @Builder.Default
     private Instant generatedAt = Instant.now();
 }
