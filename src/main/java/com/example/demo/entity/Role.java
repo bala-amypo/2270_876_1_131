@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
 public enum Role {
-    ADMIN,
-    OPERATOR,
-    VIEWER
+    ROLE_ADMIN,
+    ROLE_OPERATOR,
+    ROLE_USER
 }

@@ -7,7 +7,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppUser {
+
     private Long id;
     private String email;
-    private String role;
+    private String password;
+
+    @Builder.Default
+    private Boolean active = true;
+
+    private Role role;
 }

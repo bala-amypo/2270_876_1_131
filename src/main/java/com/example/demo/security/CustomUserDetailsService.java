@@ -1,14 +1,14 @@
 package com.example.demo.security;
 
 import com.example.demo.entity.AppUser;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.AppUserRepository;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final AppUserRepository userRepository;
@@ -18,21 +18,24 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email)
+    public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
 
-        AppUser user = userRepository.findByEmail(email)
+        AppUser user = userRepository.findByEmail(username)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found"));
+                        new ResourceNotFoundException("User not found"));
 
-        return new User(
-                user.getEmail(),
-                user.getPassword(),
-                user.getActive(),
-                true,
-                true,
-                true,
-                List.of(new SimpleGrantedAuthority(user.getRole().name()))
-        );
+        return User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .disabled(!user.getActive())
+                .authorities(
+                        List.of(
+                                new SimpleGrantedAuthority(
+                                        user.getRole().name()
+                                )
+                        )
+                )
+                .build();
     }
 }
