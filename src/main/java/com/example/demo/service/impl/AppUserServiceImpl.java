@@ -1,25 +1,22 @@
-package com.example.demo.service.impl;
+package com.example.demo.repository;
 
 import com.example.demo.entity.AppUser;
-import com.example.demo.service.AppUserService;
-import org.springframework.stereotype.Service;
+import com.example.demo.entity.Role;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
-@Service
-public class AppUserServiceImpl implements AppUserService {
-
-    private final List<AppUser> users = new ArrayList<>();
+public class AppUserRepositoryImpl implements AppUserRepository {
 
     @Override
-    public AppUser registerUser(AppUser user) {
-        users.add(user);
-        return user;
-    }
-
-    @Override
-    public List<AppUser> getAllUsers() {
-        return users;
+    public Optional<AppUser> findByEmail(String email) {
+        return Optional.of(
+                AppUser.builder()
+                        .id(1L)
+                        .email(email)
+                        .password("{noop}password")
+                        .active(true)
+                        .role(Role.ROLE_USER)
+                        .build()
+        );
     }
 }
