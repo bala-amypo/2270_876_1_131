@@ -1,13 +1,11 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.SupplyForecast;
+import com.example.demo.entity.*;
 import com.example.demo.exception.*;
-import com.example.demo.repository.SupplyForecastRepository;
-import com.example.demo.service.SupplyForecastService;
-
+import com.example.demo.repository.*;
 import java.util.*;
 
-public class SupplyForecastServiceImpl implements SupplyForecastService {
+public class SupplyForecastServiceImpl {
 
     private final SupplyForecastRepository repo;
 
@@ -32,6 +30,7 @@ public class SupplyForecastServiceImpl implements SupplyForecastService {
         ex.setAvailableSupplyMW(f.getAvailableSupplyMW());
         ex.setForecastStart(f.getForecastStart());
         ex.setForecastEnd(f.getForecastEnd());
+
         return repo.save(ex);
     }
 

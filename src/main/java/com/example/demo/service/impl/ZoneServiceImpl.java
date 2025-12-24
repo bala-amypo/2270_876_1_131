@@ -3,11 +3,10 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.Zone;
 import com.example.demo.exception.*;
 import com.example.demo.repository.ZoneRepository;
-import com.example.demo.service.ZoneService;
 import java.time.Instant;
 import java.util.*;
 
-public class ZoneServiceImpl implements ZoneService {
+public class ZoneServiceImpl {
 
     private final ZoneRepository repo;
 
@@ -16,10 +15,10 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     public Zone createZone(Zone z) {
-        if (z.getPriorityLevel() == null || z.getPriorityLevel() < 1)
-            throw new BadRequestException("priority >= 1");
+        if (z.getPriorityLevel() < 1)
+            throw new BadRequestException(">= 1");
 
-        repo.findByZoneName(z.getZoneName()).ifPresent(e -> {
+        repo.findByZoneName(z.getZoneName()).ifPresent(v -> {
             throw new BadRequestException("unique");
         });
 
@@ -34,9 +33,15 @@ public class ZoneServiceImpl implements ZoneService {
         ex.setZoneName(z.getZoneName());
         ex.setPriorityLevel(z.getPriorityLevel());
         ex.setPopulation(z.getPopulation());
-        ex.setActive(z.getActive());
+        ex.setActive(z.getActive() != null ? z.getActive() : ex.getActive());
         ex.setUpdatedAt(Instant.now());
+
         return repo.save(ex);
+    }
+
+    public Zone getZoneById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("not found"));
     }
 
     public void deactivateZone(Long id) {
@@ -44,11 +49,6 @@ public class ZoneServiceImpl implements ZoneService {
                 .orElseThrow(() -> new ResourceNotFoundException("Zone not found"));
         z.setActive(false);
         repo.save(z);
-    }
-
-    public Zone getZoneById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("not found"));
     }
 
     public List<Zone> getAllZones() {
