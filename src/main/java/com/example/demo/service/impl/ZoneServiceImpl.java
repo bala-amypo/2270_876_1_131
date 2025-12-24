@@ -27,11 +27,13 @@ public class ZoneServiceImpl implements ZoneService {
     @Override
     public Zone updateZone(Long id, Zone zone) {
         Zone existing = repository.findById(id).orElseThrow();
+
         existing.setZoneName(zone.getZoneName());
         existing.setPriorityLevel(zone.getPriorityLevel());
         existing.setPopulation(zone.getPopulation());
         existing.setActive(zone.getActive());
         existing.setUpdatedAt(Instant.now());
+
         return repository.save(existing);
     }
 
