@@ -4,6 +4,8 @@ import com.example.demo.entity.DemandReading;
 import com.example.demo.service.DemandReadingService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/demand")
 public class DemandReadingController {
@@ -17,5 +19,10 @@ public class DemandReadingController {
     @PostMapping
     public DemandReading create(@RequestBody DemandReading reading) {
         return service.createReading(reading);
+    }
+
+    @GetMapping
+    public List<DemandReading> getAll() {
+        return service.getAllReadings();
     }
 }
