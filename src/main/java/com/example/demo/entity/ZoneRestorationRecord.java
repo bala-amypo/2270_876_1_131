@@ -1,21 +1,73 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.*;
 import java.time.Instant;
 
-public class ZoneRestorationRecord {
+@Entity
+@Table(name = "zone_restoration")
+public class ZoneRestoration {
 
-    private Long eventId;
-    private Zone zone;
-    private Instant restoredAt;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public ZoneRestorationRecord() {}
+    private String zoneName;
 
-    public Long getEventId() { return eventId; }
-    public void setEventId(Long eventId) { this.eventId = eventId; }
+    private String restorationStatus;
 
-    public Zone getZone() { return zone; }
-    public void setZone(Zone zone) { this.zone = zone; }
+    private Instant restorationTime;
 
-    public Instant getRestoredAt() { return restoredAt; }
-    public void setRestoredAt(Instant restoredAt) { this.restoredAt = restoredAt; }
+    private Instant updatedAt;
+
+    public ZoneRestoration() {
+    }
+
+    public ZoneRestoration(Long id, String zoneName, String restorationStatus,
+                           Instant restorationTime, Instant updatedAt) {
+        this.id = id;
+        this.zoneName = zoneName;
+        this.restorationStatus = restorationStatus;
+        this.restorationTime = restorationTime;
+        this.updatedAt = updatedAt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getZoneName() {
+        return zoneName;
+    }
+
+    public String getRestorationStatus() {
+        return restorationStatus;
+    }
+
+    public Instant getRestorationTime() {
+        return restorationTime;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setZoneName(String zoneName) {
+        this.zoneName = zoneName;
+    }
+
+    public void setRestorationStatus(String restorationStatus) {
+        this.restorationStatus = restorationStatus;
+    }
+
+    public void setRestorationTime(Instant restorationTime) {
+        this.restorationTime = restorationTime;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
