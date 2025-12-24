@@ -3,14 +3,14 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "zone_restoration")
-public class ZoneRestoration {
+@Table(name = "zone_restoration_record")
+public class ZoneRestorationRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public ZoneRestoration() {
+    public ZoneRestorationRecord() {
     }
 
     public Long getId() {
