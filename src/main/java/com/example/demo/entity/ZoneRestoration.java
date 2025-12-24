@@ -10,7 +10,7 @@ public class ZoneRestorationRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public ZoneRestorationRecord() {
+    public ZoneRestoration() {
     }
 
     public Long getId() {
