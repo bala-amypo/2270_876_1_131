@@ -2,11 +2,12 @@ package com.example.demo.security;
 
 import com.example.demo.entity.AppUser;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import java.util.Date;
 
 public class JwtTokenProvider {
 
-    private final String secret = "secret";
+    private final byte[] key = "secretsecretsecretsecretsecret12".getBytes();
 
     public String createToken(AppUser user) {
         return Jwts.builder()
@@ -14,7 +15,7 @@ public class JwtTokenProvider {
                 .claim("role", user.getRole())
                 .claim("userId", user.getId())
                 .setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, secret)
+                .signWith(Keys.hmacShaKeyFor(key))
                 .compact();
     }
 
@@ -24,8 +25,9 @@ public class JwtTokenProvider {
     }
 
     public Claims getClaims(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
     }

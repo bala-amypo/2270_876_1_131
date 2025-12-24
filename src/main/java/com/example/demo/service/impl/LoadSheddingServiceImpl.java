@@ -3,19 +3,20 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.*;
 import com.example.demo.exception.*;
 import com.example.demo.repository.*;
-import com.example.demo.service.LoadSheddingService;
-
 import java.util.*;
 
-public class LoadSheddingServiceImpl implements LoadSheddingService {
+public class LoadSheddingServiceImpl {
 
     private final SupplyForecastRepository forecastRepo;
     private final ZoneRepository zoneRepo;
     private final DemandReadingRepository readingRepo;
     private final LoadSheddingEventRepository eventRepo;
 
-    public LoadSheddingServiceImpl(SupplyForecastRepository f, ZoneRepository z,
-                                   DemandReadingRepository r, LoadSheddingEventRepository e) {
+    public LoadSheddingServiceImpl(
+            SupplyForecastRepository f,
+            ZoneRepository z,
+            DemandReadingRepository r,
+            LoadSheddingEventRepository e) {
         forecastRepo = f;
         zoneRepo = z;
         readingRepo = r;
@@ -35,15 +36,16 @@ public class LoadSheddingServiceImpl implements LoadSheddingService {
                     readingRepo.findFirstByZoneIdOrderByRecordedAtDesc(z.getId());
 
             if (dr.isPresent() && dr.get().getDemandMW() > f.getAvailableSupplyMW()) {
-                LoadSheddingEvent ev = LoadSheddingEvent.builder()
-                        .zone(z)
-                        .expectedDemandReductionMW(dr.get().getDemandMW())
-                        .reason("Auto shedding")
-                        .build();
-                return eventRepo.save(ev);
+                return eventRepo.save(
+                        LoadSheddingEvent.builder()
+                                .zone(z)
+                                .expectedDemandReductionMW(dr.get().getDemandMW())
+                                .reason("Overload")
+                                .build()
+                );
             }
         }
-        throw new BadRequestException("No overload");
+        throw new BadRequestException("No suitable");
     }
 
     public List<LoadSheddingEvent> getAllEvents() {
@@ -55,7 +57,7 @@ public class LoadSheddingServiceImpl implements LoadSheddingService {
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
     }
 
-    public List<LoadSheddingEvent> getEventsForZone(Long zoneId) {
-        return eventRepo.findByZoneIdOrderByEventStartDesc(zoneId);
+    public List<LoadSheddingEvent> getEventsForZone(Long id) {
+        return eventRepo.findByZoneIdOrderByEventStartDesc(id);
     }
 }
