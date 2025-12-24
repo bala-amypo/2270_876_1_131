@@ -1,12 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.SupplyForecast;
-
-import java.util.Optional;
+import java.util.List;
 
 public interface SupplyForecastService {
 
     SupplyForecast saveForecast(SupplyForecast forecast);
 
-    Optional<SupplyForecast> getLatestForecast();
+    List<SupplyForecast> getAllForecasts();
 }

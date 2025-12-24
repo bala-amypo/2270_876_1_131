@@ -4,8 +4,10 @@ import com.example.demo.entity.SupplyForecast;
 import com.example.demo.service.SupplyForecastService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/supply-forecast")
+@RequestMapping("/supply")
 public class SupplyForecastController {
 
     private final SupplyForecastService service;
@@ -15,12 +17,12 @@ public class SupplyForecastController {
     }
 
     @PostMapping
-    public SupplyForecast createForecast(@RequestBody SupplyForecast forecast) {
+    public SupplyForecast create(@RequestBody SupplyForecast forecast) {
         return service.saveForecast(forecast);
     }
 
-    @GetMapping("/latest")
-    public SupplyForecast getLatestForecast() {
-        return service.getLatestForecast().orElse(null);
+    @GetMapping
+    public List<SupplyForecast> getAll() {
+        return service.getAllForecasts();
     }
 }
