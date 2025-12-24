@@ -3,11 +3,15 @@ package com.example.demo.security;
 import com.example.demo.entity.AppUser;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 
+@Component   // ⭐ THIS IS THE FIX
 public class JwtTokenProvider {
 
-    private final byte[] key = "secretsecretsecretsecretsecret12".getBytes();
+    private final byte[] key =
+            "secretsecretsecretsecretsecret12".getBytes();
 
     public String createToken(AppUser user) {
         return Jwts.builder()
