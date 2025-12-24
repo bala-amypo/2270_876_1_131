@@ -13,6 +13,5 @@ public class Zone {
     private Integer priorityLevel;
     private Integer population;
     private Boolean active = true;
-    private Instant createdAt = Instant.now();
     private Instant updatedAt;
 }
