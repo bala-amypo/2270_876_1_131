@@ -1,10 +1,5 @@
-package com.example.demo.repository;
-
-import com.example.demo.entity.ZoneRestoration;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-@Repository
-public interface ZoneRestorationRepository
-        extends JpaRepository<ZoneRestoration, Long> {
+public interface ZoneRestorationRecordRepository {
+    Optional<ZoneRestorationRecord> findById(Long id);
+    List<ZoneRestorationRecord> findByZoneIdOrderByRestoredAtDesc(Long zoneId);
+    ZoneRestorationRecord save(ZoneRestorationRecord r);
 }

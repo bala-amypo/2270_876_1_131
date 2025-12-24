@@ -1,28 +1,46 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.SupplyForecast;
+import com.example.demo.exception.*;
 import com.example.demo.repository.SupplyForecastRepository;
 import com.example.demo.service.SupplyForecastService;
-import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
 
-@Service
 public class SupplyForecastServiceImpl implements SupplyForecastService {
 
-    private final SupplyForecastRepository repository;
+    private final SupplyForecastRepository repo;
 
-    public SupplyForecastServiceImpl(SupplyForecastRepository repository) {
-        this.repository = repository;
+    public SupplyForecastServiceImpl(SupplyForecastRepository r) {
+        repo = r;
     }
 
-    @Override
-    public SupplyForecast saveForecast(SupplyForecast forecast) {
-        return repository.save(forecast);
+    public SupplyForecast createForecast(SupplyForecast f) {
+        if (f.getAvailableSupplyMW() < 0)
+            throw new BadRequestException(">= 0");
+
+        if (f.getForecastEnd().isBefore(f.getForecastStart()))
+            throw new BadRequestException("range");
+
+        return repo.save(f);
     }
 
-    @Override
-    public Optional<SupplyForecast> getLatestForecast() {
-        return repository.findFirstByOrderByGeneratedAtDesc();
+    public SupplyForecast updateForecast(Long id, SupplyForecast f) {
+        SupplyForecast ex = repo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Forecast not found"));
+
+        ex.setAvailableSupplyMW(f.getAvailableSupplyMW());
+        ex.setForecastStart(f.getForecastStart());
+        ex.setForecastEnd(f.getForecastEnd());
+        return repo.save(ex);
+    }
+
+    public SupplyForecast getLatestForecast() {
+        return repo.findFirstByOrderByGeneratedAtDesc()
+                .orElseThrow(() -> new ResourceNotFoundException("No forecasts"));
+    }
+
+    public List<SupplyForecast> getAllForecasts() {
+        return repo.findAll();
     }
 }
