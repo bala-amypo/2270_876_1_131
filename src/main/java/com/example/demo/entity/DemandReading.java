@@ -1,21 +1,50 @@
 package com.example.demo.entity;
 
-import java.time.Instant;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "demand_reading")
 public class DemandReading {
 
-    private double demandMW;
-    private Instant recordedAt;
-    private Zone zone;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public DemandReading() {}
+    private Double demand;
 
-    public double getDemandMW() { return demandMW; }
-    public void setDemandMW(double demandMW) { this.demandMW = demandMW; }
+    private String timestamp;
 
-    public Instant getRecordedAt() { return recordedAt; }
-    public void setRecordedAt(Instant recordedAt) { this.recordedAt = recordedAt; }
+    // REQUIRED by JPA
+    public DemandReading() {
+    }
 
-    public Zone getZone() { return zone; }
-    public void setZone(Zone zone) { this.zone = zone; }
+    public DemandReading(Long id, Double demand, String timestamp) {
+        this.id = id;
+        this.demand = demand;
+        this.timestamp = timestamp;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Double getDemand() {
+        return demand;
+    }
+
+    public void setDemand(Double demand) {
+        this.demand = demand;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
 }
