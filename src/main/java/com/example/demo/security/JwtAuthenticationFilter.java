@@ -17,13 +17,13 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenProvider tokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
     private final CustomUserDetailsService userDetailsService;
 
     public JwtAuthenticationFilter(
-            JwtTokenProvider tokenProvider,
+            JwtTokenProvider jwtTokenProvider,
             CustomUserDetailsService userDetailsService) {
-        this.tokenProvider = tokenProvider;
+        this.jwtTokenProvider = jwtTokenProvider;
         this.userDetailsService = userDetailsService;
     }
 
@@ -37,27 +37,31 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String header = request.getHeader("Authorization");
 
         if (header != null && header.startsWith("Bearer ")) {
+
             String token = header.substring(7);
 
-            if (tokenProvider.validateToken(token)) {
-                Claims claims = tokenProvider.getClaims(token);
+            if (jwtTokenProvider.validateToken(token)) {
+
+                Claims claims = jwtTokenProvider.getClaims(token);
                 String email = claims.getSubject();
 
                 UserDetails userDetails =
                         userDetailsService.loadUserByUsername(email);
 
-                UsernamePasswordAuthenticationToken auth =
+                UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(
                                 userDetails,
                                 null,
-                                userDetails.getAuthorities());
+                                userDetails.getAuthorities()
+                        );
 
-                auth.setDetails(
+                authentication.setDetails(
                         new WebAuthenticationDetailsSource()
-                                .buildDetails(request));
+                                .buildDetails(request)
+                );
 
                 SecurityContextHolder.getContext()
-                        .setAuthentication(auth);
+                        .setAuthentication(authentication);
             }
         }
 

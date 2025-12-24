@@ -15,6 +15,7 @@ public class JwtTokenProvider {
     private final long validityInMs = 3600000; // 1 hour
 
     public String createToken(AppUser user) {
+
         Claims claims = Jwts.claims().setSubject(user.getEmail());
         claims.put("userId", user.getId());
         claims.put("role", user.getRole().name());
@@ -37,7 +38,7 @@ public class JwtTokenProvider {
                     .build()
                     .parseClaimsJws(token);
             return true;
-        } catch (JwtException | IllegalArgumentException ex) {
+        } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }
