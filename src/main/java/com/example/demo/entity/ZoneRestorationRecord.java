@@ -1,73 +1,43 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.time.Instant;
 
 @Entity
-@Table(name = "zone_restoration")
-public class ZoneRestoration {
+public class ZoneRestorationRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String zoneName;
+    private Instant restoredAt;
+    private String status;
 
-    private String restorationStatus;
+    // Default constructor
+    public ZoneRestorationRecord() {}
 
-    private Instant restorationTime;
-
-    private Instant updatedAt;
-
-    public ZoneRestoration() {
-    }
-
-    public ZoneRestoration(Long id, String zoneName, String restorationStatus,
-                           Instant restorationTime, Instant updatedAt) {
-        this.id = id;
+    // Parameterized constructor
+    public ZoneRestorationRecord(String zoneName, Instant restoredAt, String status) {
         this.zoneName = zoneName;
-        this.restorationStatus = restorationStatus;
-        this.restorationTime = restorationTime;
-        this.updatedAt = updatedAt;
+        this.restoredAt = restoredAt;
+        this.status = status;
     }
 
-    public Long getId() {
-        return id;
-    }
+    // Getters & Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getZoneName() {
-        return zoneName;
-    }
+    public String getZoneName() { return zoneName; }
+    public void setZoneName(String zoneName) { this.zoneName = zoneName; }
 
-    public String getRestorationStatus() {
-        return restorationStatus;
-    }
+    public Instant getRestoredAt() { return restoredAt; }
+    public void setRestoredAt(Instant restoredAt) { this.restoredAt = restoredAt; }
 
-    public Instant getRestorationTime() {
-        return restorationTime;
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setZoneName(String zoneName) {
-        this.zoneName = zoneName;
-    }
-
-    public void setRestorationStatus(String restorationStatus) {
-        this.restorationStatus = restorationStatus;
-    }
-
-    public void setRestorationTime(Instant restorationTime) {
-        this.restorationTime = restorationTime;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }
