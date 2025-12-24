@@ -1,16 +1,21 @@
 package com.example.demo.entity;
 
-import lombok.*;
 import java.time.Instant;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class ZoneRestorationRecord {
-    private Long id;
-    private Zone zone;
+
     private Long eventId;
+    private Zone zone;
     private Instant restoredAt;
-    private String notes;
+
+    public ZoneRestorationRecord() {}
+
+    public Long getEventId() { return eventId; }
+    public void setEventId(Long eventId) { this.eventId = eventId; }
+
+    public Zone getZone() { return zone; }
+    public void setZone(Zone zone) { this.zone = zone; }
+
+    public Instant getRestoredAt() { return restoredAt; }
+    public void setRestoredAt(Instant restoredAt) { this.restoredAt = restoredAt; }
 }
