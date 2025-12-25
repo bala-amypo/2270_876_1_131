@@ -1,19 +1,22 @@
 package com.example.demo.entity;
 
+import lombok.*;
 import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DemandReading {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long zoneId;
-    private Instant createdAt;
+    @ManyToOne
+    private Zone zone;
 
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
+    private Double demandMW;
+    private Instant recordedAt;
 }
