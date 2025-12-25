@@ -5,21 +5,27 @@ import java.time.Instant;
 
 @Entity
 public class ZoneRestorationRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Zone zone;
-
+    private Long zoneId;
     private Instant restoredAt;
 
-    // Getters and Setters
+    public ZoneRestorationRecord() {}
+
+    public ZoneRestorationRecord(Long zoneId, Instant restoredAt) {
+        this.zoneId = zoneId;
+        this.restoredAt = restoredAt;
+    }
+
+    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public Zone getZone() { return zone; }
-    public void setZone(Zone zone) { this.zone = zone; }
+    public Long getZoneId() { return zoneId; }
+    public void setZoneId(Long zoneId) { this.zoneId = zoneId; }
 
     public Instant getRestoredAt() { return restoredAt; }
     public void setRestoredAt(Instant restoredAt) { this.restoredAt = restoredAt; }
