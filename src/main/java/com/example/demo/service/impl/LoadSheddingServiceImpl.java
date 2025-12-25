@@ -1,8 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.LoadSheddingEvent;
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.LoadSheddingEventRepository;
+import com.example.demo.repository.LoadSheddingRepository;
 import com.example.demo.service.LoadSheddingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LoadSheddingServiceImpl implements LoadSheddingService {
 
-    private final LoadSheddingEventRepository repository;
+    private final LoadSheddingRepository repository;
 
     @Override
     public LoadSheddingEvent createEvent(LoadSheddingEvent event) {
@@ -21,24 +20,18 @@ public class LoadSheddingServiceImpl implements LoadSheddingService {
     }
 
     @Override
-    public LoadSheddingEvent updateEvent(Long eventId, LoadSheddingEvent event) {
-        LoadSheddingEvent existing = repository.findById(eventId)
-                .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
-        existing.setEventStart(event.getEventStart());
-        existing.setEventEnd(event.getEventEnd());
-        existing.setExpectedDemandReductionMW(event.getExpectedDemandReductionMW());
+    public LoadSheddingEvent updateEvent(Long id, LoadSheddingEvent event) {
+        LoadSheddingEvent existing = repository.findById(id).orElseThrow();
+        existing.setZone(event.getZone());
+        existing.setStartTime(event.getStartTime());
+        existing.setEndTime(event.getEndTime());
+        existing.setDescription(event.getDescription());
         return repository.save(existing);
     }
 
     @Override
-    public void deleteEvent(Long eventId) {
-        repository.deleteById(eventId);
-    }
-
-    @Override
-    public LoadSheddingEvent getEventById(Long eventId) {
-        return repository.findById(eventId)
-                .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
+    public void deleteEvent(Long id) {
+        repository.deleteById(id);
     }
 
     @Override

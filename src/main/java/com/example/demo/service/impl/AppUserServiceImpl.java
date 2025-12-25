@@ -1,31 +1,39 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.AppUser;
-import com.example.demo.entity.Role;
 import com.example.demo.repository.AppUserRepository;
 import com.example.demo.service.AppUserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AppUserServiceImpl implements AppUserService {
 
     private final AppUserRepository repository;
 
-    public AppUserServiceImpl(AppUserRepository repository) {
-        this.repository = repository;
-    }
-
     @Override
-    public AppUser registerUser(AppUser user) {
+    public AppUser createUser(AppUser user) {
+        // Ensure user is active
         user.setActive(true);
-        user.setRole(Role.USER);
+
+        // If role is an object, convert to String
+        if (user.getRole() != null) {
+            user.setRole(user.getRole().toString());
+        }
+
         return repository.save(user);
     }
 
     @Override
     public List<AppUser> getAllUsers() {
         return repository.findAll();
+    }
+
+    @Override
+    public AppUser getUserById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 }

@@ -22,7 +22,7 @@ public class LoadSheddingEvent {
 
     private Instant startTime;
 
-    private Instant endTime; // Add this field
+    private Instant endTime; // Must exist to fix getEventEnd() errors
 
     private String description;
 }

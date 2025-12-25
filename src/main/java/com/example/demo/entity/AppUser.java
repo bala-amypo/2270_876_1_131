@@ -22,5 +22,5 @@ public class AppUser {
 
     private boolean active;
 
-    private String role; // keep as String for simplicity
+    private String role; // role stored as string
 }
