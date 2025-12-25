@@ -1,24 +1,20 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-import java.time.Instant;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "zones")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Zone {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String zoneName; // use zoneName instead of getName
-    private Integer priorityLevel;
-    private Integer population;
-    private Boolean active = true;
-
-    private Instant createdAt;
-    private Instant updatedAt;
+    private String name; // Add name field
 }
