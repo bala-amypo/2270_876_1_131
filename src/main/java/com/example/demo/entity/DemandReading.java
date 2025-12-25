@@ -1,14 +1,14 @@
 package com.example.demo.entity;
 
-import lombok.*;
 import jakarta.persistence.*;
+import lombok.*;
 import java.time.Instant;
 
 @Entity
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class DemandReading {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +19,9 @@ public class DemandReading {
 
     private Double demandMW;
     private Instant recordedAt;
+
+    // Convenience setter
+    public void setCreatedAt(Instant instant) {
+        this.recordedAt = instant;
+    }
 }

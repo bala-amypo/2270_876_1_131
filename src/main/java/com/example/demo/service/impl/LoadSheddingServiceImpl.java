@@ -1,14 +1,9 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.LoadSheddingEvent;
-import com.example.demo.entity.SupplyForecast;
-import com.example.demo.entity.Zone;
+import com.example.demo.entity.*;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.DemandReadingRepository;
-import com.example.demo.repository.LoadSheddingEventRepository;
-import com.example.demo.repository.SupplyForecastRepository;
-import com.example.demo.repository.ZoneRepository;
+import com.example.demo.repository.*;
 import com.example.demo.service.LoadSheddingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,10 +28,9 @@ public class LoadSheddingServiceImpl implements LoadSheddingService {
         List<Zone> zones = zoneRepo.findByActiveTrueOrderByPriorityLevelAsc();
         if (zones.isEmpty()) throw new BadRequestException("No overload or suitable zones");
 
-        // simulate load shedding
         Zone z = zones.get(0);
         LoadSheddingEvent e = LoadSheddingEvent.builder()
-                .expectedDemandReductionMW(50.0) // just an example
+                .expectedDemandReductionMW(50.0)
                 .eventStart(Instant.now())
                 .build();
         return eventRepo.save(e);
@@ -48,5 +42,8 @@ public class LoadSheddingServiceImpl implements LoadSheddingService {
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
     }
 
-    // Implement other methods similarly...
+    @Override
+    public List<LoadSheddingEvent> getAllEvents() {
+        return eventRepo.findAll();
+    }
 }

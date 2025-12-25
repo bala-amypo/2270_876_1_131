@@ -1,14 +1,14 @@
 package com.example.demo.entity;
 
-import lombok.*;
 import jakarta.persistence.*;
+import lombok.*;
 import java.time.Instant;
 
 @Entity
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class SupplyForecast {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +17,9 @@ public class SupplyForecast {
     private Double availableSupplyMW;
     private Instant forecastStart;
     private Instant forecastEnd;
-    private Instant generatedAt = Instant.now();
+    private Instant generatedAt;
+
+    public void setCreatedAt(Instant instant) {
+        this.generatedAt = instant;
+    }
 }

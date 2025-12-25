@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ZoneRepository extends JpaRepository<Zone, Long> {
-    Optional<Zone> findByZoneName(String zoneName);
+    Optional<Zone> findByZoneName(String name);
     List<Zone> findByActiveTrueOrderByPriorityLevelAsc();
 }
