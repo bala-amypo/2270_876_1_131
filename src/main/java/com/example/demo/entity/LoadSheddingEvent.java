@@ -10,10 +10,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoadSheddingEvent {
+
     @Id
     @GeneratedValue
     private Long id;
 
-    private Long zoneId;
-    private LocalDateTime eventStart;
+    @ManyToOne
+    private Zone zone;
+
+    private double demandMW;
+    private double supplyMW;
+
+    private LocalDateTime startTime;
 }

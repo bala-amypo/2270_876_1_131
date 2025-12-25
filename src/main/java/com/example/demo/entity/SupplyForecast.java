@@ -2,7 +2,7 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Entity
 @Data
@@ -10,10 +10,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SupplyForecast {
+
     @Id
     @GeneratedValue
     private Long id;
 
-    private double predictedSupply;
-    private LocalDateTime generatedAt;
+    private double supplyMW;
+    private Instant createdAt;
+    private Instant updatedAt;
 }

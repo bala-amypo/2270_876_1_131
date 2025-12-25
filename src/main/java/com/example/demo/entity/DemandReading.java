@@ -10,11 +10,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DemandReading {
+
     @Id
     @GeneratedValue
     private Long id;
 
-    private Long zoneId;
-    private double demand;
+    @ManyToOne
+    private Zone zone;
+
+    private double demandMW;
     private LocalDateTime recordedAt;
 }
