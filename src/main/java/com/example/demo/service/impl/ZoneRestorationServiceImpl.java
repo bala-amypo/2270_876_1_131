@@ -3,20 +3,28 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.ZoneRestorationRecord;
 import com.example.demo.repository.ZoneRestorationRepository;
 import com.example.demo.service.ZoneRestorationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class ZoneRestorationServiceImpl implements ZoneRestorationService {
 
-    @Autowired
-    private ZoneRestorationRepository repository;
+    private final ZoneRestorationRepository repository;
+
+    public ZoneRestorationServiceImpl(ZoneRestorationRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
-    public ZoneRestorationRecord restoreZone(ZoneRestorationRecord record) {
-        record.setRestoredAt(Instant.now());
+    public ZoneRestorationRecord createRecord(ZoneRestorationRecord record) {
+        record.setRestoredAt(Instant.now()); // use Instant, not LocalDateTime
         return repository.save(record);
+    }
+
+    @Override
+    public List<ZoneRestorationRecord> getAllRecords() {
+        return repository.findAll();
     }
 }

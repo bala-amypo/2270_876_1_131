@@ -2,7 +2,8 @@ package com.example.demo.repository;
 
 import com.example.demo.entity.LoadSheddingEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-// File must be named LoadSheddingRepository.java
+@Repository
 public interface LoadSheddingRepository extends JpaRepository<LoadSheddingEvent, Long> {
 }
