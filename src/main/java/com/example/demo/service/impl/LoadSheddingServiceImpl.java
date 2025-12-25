@@ -5,17 +5,24 @@ import com.example.demo.repository.LoadSheddingEventRepository;
 import com.example.demo.service.LoadSheddingService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LoadSheddingServiceImpl implements LoadSheddingService {
 
-    private final LoadSheddingEventRepository loadSheddingEventRepository;
+    private final LoadSheddingEventRepository repository;
 
-    public LoadSheddingServiceImpl(LoadSheddingEventRepository loadSheddingEventRepository) {
-        this.loadSheddingEventRepository = loadSheddingEventRepository;
+    public LoadSheddingServiceImpl(LoadSheddingEventRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public LoadSheddingEvent createEvent(LoadSheddingEvent event) {
-        return loadSheddingEventRepository.save(event);
+        return repository.save(event);
+    }
+
+    @Override
+    public List<LoadSheddingEvent> getAllEvents() {
+        return repository.findAll();
     }
 }

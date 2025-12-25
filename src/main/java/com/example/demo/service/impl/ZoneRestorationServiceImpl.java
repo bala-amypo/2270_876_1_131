@@ -5,18 +5,25 @@ import com.example.demo.repository.ZoneRestorationRecordRepository;
 import com.example.demo.service.ZoneRestorationService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ZoneRestorationServiceImpl implements ZoneRestorationService {
 
-    private final ZoneRestorationRecordRepository zoneRestorationRecordRepository;
+    private final ZoneRestorationRecordRepository repository;
 
     public ZoneRestorationServiceImpl(
-            ZoneRestorationRecordRepository zoneRestorationRecordRepository) {
-        this.zoneRestorationRecordRepository = zoneRestorationRecordRepository;
+            ZoneRestorationRecordRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public ZoneRestorationRecord restoreZone(ZoneRestorationRecord record) {
-        return zoneRestorationRecordRepository.save(record);
+        return repository.save(record);
+    }
+
+    @Override
+    public List<ZoneRestorationRecord> getAllRestorations() {
+        return repository.findAll();
     }
 }

@@ -6,15 +6,16 @@ import com.example.demo.service.SupplyForecastService;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
 public class SupplyForecastServiceImpl implements SupplyForecastService {
 
-    private final SupplyForecastRepository supplyForecastRepository;
+    private final SupplyForecastRepository repository;
 
-    public SupplyForecastServiceImpl(SupplyForecastRepository supplyForecastRepository) {
-        this.supplyForecastRepository = supplyForecastRepository;
+    public SupplyForecastServiceImpl(SupplyForecastRepository repository) {
+        this.repository = repository;
     }
 
     @Override
@@ -23,16 +24,19 @@ public class SupplyForecastServiceImpl implements SupplyForecastService {
             forecast.setCreatedAt(Instant.now());
         }
         forecast.setUpdatedAt(Instant.now());
-        return supplyForecastRepository.save(forecast);
+        return repository.save(forecast);
     }
 
     @Override
     public List<SupplyForecast> getAllForecasts() {
-        return supplyForecastRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
     public SupplyForecast getLatestForecast() {
-        return supplyForecastRepository.findFirstByOrderByCreatedAtDesc();
+        return repository.findAll()
+                .stream()
+                .max(Comparator.comparing(SupplyForecast::getCreatedAt))
+                .orElse(null);
     }
 }
