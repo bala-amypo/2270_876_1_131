@@ -1,27 +1,33 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.Instant;
 
 @Entity
+@Table(name = "demand_readings")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class DemandReading {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Zone zone;
+    private Long zoneId;
 
     private Double demandMW;
-    private Instant recordedAt;
 
-    // Convenience setter
-    public void setCreatedAt(Instant instant) {
-        this.recordedAt = instant;
+    private Instant createdAt;
+
+    // If needed, add constructors with fields except id
+    public DemandReading(Long zoneId, Double demandMW, Instant createdAt) {
+        this.zoneId = zoneId;
+        this.demandMW = demandMW;
+        this.createdAt = createdAt;
     }
 }
