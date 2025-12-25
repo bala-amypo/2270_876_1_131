@@ -10,10 +10,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ZoneRestorationRecord {
+
     @Id
     @GeneratedValue
     private Long id;
 
-    private Long zoneId;
+    @ManyToOne
+    private Zone zone;
+
     private LocalDateTime restoredAt;
 }

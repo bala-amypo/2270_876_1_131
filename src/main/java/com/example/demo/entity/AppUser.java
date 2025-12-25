@@ -9,10 +9,15 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppUser {
+
     @Id
     @GeneratedValue
     private Long id;
 
     private String username;
-    private String role;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    private boolean active;
 }
