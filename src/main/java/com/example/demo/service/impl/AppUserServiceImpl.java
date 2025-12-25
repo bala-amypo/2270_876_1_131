@@ -11,21 +11,21 @@ import java.util.List;
 @Service
 public class AppUserServiceImpl implements AppUserService {
 
-    private final AppUserRepository userRepository;
+    private final AppUserRepository repository;
 
-    public AppUserServiceImpl(AppUserRepository userRepository) {
-        this.userRepository = userRepository;
+    public AppUserServiceImpl(AppUserRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public AppUser createUser(AppUser user) {
+    public AppUser registerUser(AppUser user) {
         user.setActive(true);
-        user.setRole(Role.USER);   // ✅ enum usage
-        return userRepository.save(user);
+        user.setRole(Role.USER);
+        return repository.save(user);
     }
 
     @Override
     public List<AppUser> getAllUsers() {
-        return userRepository.findAll();
+        return repository.findAll();
     }
 }
