@@ -1,49 +1,48 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.*;
-import com.example.demo.exception.BadRequestException;
+import com.example.demo.entity.LoadSheddingEvent;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.*;
+import com.example.demo.repository.LoadSheddingEventRepository;
 import com.example.demo.service.LoadSheddingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class LoadSheddingServiceImpl implements LoadSheddingService {
 
-    private final SupplyForecastRepository forecastRepo;
-    private final ZoneRepository zoneRepo;
-    private final DemandReadingRepository readingRepo;
-    private final LoadSheddingEventRepository eventRepo;
+    private final LoadSheddingEventRepository repository;
 
     @Override
-    public LoadSheddingEvent triggerLoadShedding(Long forecastId) {
-        SupplyForecast f = forecastRepo.findById(forecastId)
-                .orElseThrow(() -> new ResourceNotFoundException("Forecast not found"));
+    public LoadSheddingEvent createEvent(LoadSheddingEvent event) {
+        return repository.save(event);
+    }
 
-        List<Zone> zones = zoneRepo.findByActiveTrueOrderByPriorityLevelAsc();
-        if (zones.isEmpty()) throw new BadRequestException("No overload or suitable zones");
+    @Override
+    public LoadSheddingEvent updateEvent(Long eventId, LoadSheddingEvent event) {
+        LoadSheddingEvent existing = repository.findById(eventId)
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
+        existing.setEventStart(event.getEventStart());
+        existing.setEventEnd(event.getEventEnd());
+        existing.setExpectedDemandReductionMW(event.getExpectedDemandReductionMW());
+        return repository.save(existing);
+    }
 
-        Zone z = zones.get(0);
-        LoadSheddingEvent e = LoadSheddingEvent.builder()
-                .expectedDemandReductionMW(50.0)
-                .eventStart(Instant.now())
-                .build();
-        return eventRepo.save(e);
+    @Override
+    public void deleteEvent(Long eventId) {
+        repository.deleteById(eventId);
     }
 
     @Override
     public LoadSheddingEvent getEventById(Long eventId) {
-        return eventRepo.findById(eventId)
+        return repository.findById(eventId)
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
     }
 
     @Override
     public List<LoadSheddingEvent> getAllEvents() {
-        return eventRepo.findAll();
+        return repository.findAll();
     }
 }
