@@ -10,19 +10,25 @@ import java.util.List;
 @Service
 public class DemandReadingServiceImpl implements DemandReadingService {
 
-    private final DemandReadingRepository repository;
+    private final DemandReadingRepository demandReadingRepository;
 
-    public DemandReadingServiceImpl(DemandReadingRepository repository) {
-        this.repository = repository;
+    public DemandReadingServiceImpl(DemandReadingRepository demandReadingRepository) {
+        this.demandReadingRepository = demandReadingRepository;
     }
 
     @Override
     public DemandReading createReading(DemandReading reading) {
-        return repository.save(reading);
+        return demandReadingRepository.save(reading);
     }
 
     @Override
     public List<DemandReading> getAllReadings() {
-        return repository.findAll();
+        return demandReadingRepository.findAll();
+    }
+
+    @Override
+    public DemandReading getLatestReading(long zoneId) {
+        return demandReadingRepository
+                .findFirstByZoneIdOrderByRecordedAtDesc(zoneId);
     }
 }

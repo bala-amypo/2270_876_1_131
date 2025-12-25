@@ -11,20 +11,28 @@ import java.util.List;
 @Service
 public class SupplyForecastServiceImpl implements SupplyForecastService {
 
-    private final SupplyForecastRepository repository;
+    private final SupplyForecastRepository supplyForecastRepository;
 
-    public SupplyForecastServiceImpl(SupplyForecastRepository repository) {
-        this.repository = repository;
+    public SupplyForecastServiceImpl(SupplyForecastRepository supplyForecastRepository) {
+        this.supplyForecastRepository = supplyForecastRepository;
     }
 
     @Override
     public SupplyForecast saveForecast(SupplyForecast forecast) {
+        if (forecast.getCreatedAt() == null) {
+            forecast.setCreatedAt(Instant.now());
+        }
         forecast.setUpdatedAt(Instant.now());
-        return repository.save(forecast);
+        return supplyForecastRepository.save(forecast);
     }
 
     @Override
     public List<SupplyForecast> getAllForecasts() {
-        return repository.findAll();
+        return supplyForecastRepository.findAll();
+    }
+
+    @Override
+    public SupplyForecast getLatestForecast() {
+        return supplyForecastRepository.findFirstByOrderByCreatedAtDesc();
     }
 }

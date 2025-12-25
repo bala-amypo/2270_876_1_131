@@ -11,42 +11,50 @@ import java.util.List;
 @Service
 public class ZoneServiceImpl implements ZoneService {
 
-    private final ZoneRepository repository;
+    private final ZoneRepository zoneRepository;
 
-    public ZoneServiceImpl(ZoneRepository repository) {
-        this.repository = repository;
+    public ZoneServiceImpl(ZoneRepository zoneRepository) {
+        this.zoneRepository = zoneRepository;
     }
 
     @Override
     public Zone createZone(Zone zone) {
         zone.setActive(true);
+        zone.setCreatedAt(Instant.now());
         zone.setUpdatedAt(Instant.now());
-        return repository.save(zone);
+        return zoneRepository.save(zone);
     }
 
     @Override
     public Zone updateZone(Long id, Zone zone) {
-        Zone existing = repository.findById(id).orElseThrow();
+        Zone existing = zoneRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Zone not found"));
 
         existing.setZoneName(zone.getZoneName());
-        existing.setPriorityLevel(zone.getPriorityLevel());
         existing.setPopulation(zone.getPopulation());
+        existing.setPriorityLevel(zone.getPriorityLevel());
         existing.setActive(zone.getActive());
         existing.setUpdatedAt(Instant.now());
 
-        return repository.save(existing);
+        return zoneRepository.save(existing);
     }
 
     @Override
     public void deactivateZone(Long id) {
-        Zone zone = repository.findById(id).orElseThrow();
+        Zone zone = zoneRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Zone not found"));
         zone.setActive(false);
         zone.setUpdatedAt(Instant.now());
-        repository.save(zone);
+        zoneRepository.save(zone);
     }
 
     @Override
     public List<Zone> getAllZones() {
-        return repository.findAll();
+        return zoneRepository.findAll();
+    }
+
+    @Override
+    public Zone getZoneById(long id) {
+        return zoneRepository.findById(id).orElse(null);
     }
 }
