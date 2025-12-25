@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 public class AppUser {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,7 +17,16 @@ public class AppUser {
 
     private boolean active;
 
-    // Getters and Setters
+    public AppUser() {}
+
+    public AppUser(String username, String password, Role role, boolean active) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.active = active;
+    }
+
+    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

@@ -5,25 +5,32 @@ import java.time.Instant;
 
 @Entity
 public class DemandReading {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Zone zone;
-
-    private double demand;
+    private Long zoneId;
+    private double readingValue;
     private Instant createdAt;
 
-    // Getters and Setters
+    public DemandReading() {}
+
+    public DemandReading(Long zoneId, double readingValue, Instant createdAt) {
+        this.zoneId = zoneId;
+        this.readingValue = readingValue;
+        this.createdAt = createdAt;
+    }
+
+    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public Zone getZone() { return zone; }
-    public void setZone(Zone zone) { this.zone = zone; }
+    public Long getZoneId() { return zoneId; }
+    public void setZoneId(Long zoneId) { this.zoneId = zoneId; }
 
-    public double getDemand() { return demand; }
-    public void setDemand(double demand) { this.demand = demand; }
+    public double getReadingValue() { return readingValue; }
+    public void setReadingValue(double readingValue) { this.readingValue = readingValue; }
 
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }

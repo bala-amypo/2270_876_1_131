@@ -1,35 +1,28 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.DemandReading;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.DemandReadingRepository;
 import com.example.demo.service.DemandReadingService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.List;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class DemandReadingServiceImpl implements DemandReadingService {
 
-    private final DemandReadingRepository repository;
+    @Autowired
+    private DemandReadingRepository repository;
 
     @Override
-    public DemandReading saveReading(DemandReading reading) {
+    public DemandReading createReading(DemandReading reading) {
         reading.setCreatedAt(Instant.now());
         return repository.save(reading);
     }
 
     @Override
-    public List<DemandReading> getAllReadings() {
-        return repository.findAll();
-    }
-
-    @Override
-    public DemandReading getLatestReadingByZone(Long zoneId) {
-        return repository.findFirstByZoneIdOrderByCreatedAtDesc(zoneId)
-                .orElseThrow(() -> new ResourceNotFoundException("No readings found for zone: " + zoneId));
+    public Optional<DemandReading> getLatestReading(Long zoneId) {
+        return repository.findTopByZoneIdOrderByCreatedAtDesc(zoneId);
     }
 }
