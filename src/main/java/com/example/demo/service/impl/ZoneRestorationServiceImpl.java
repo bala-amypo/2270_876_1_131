@@ -18,13 +18,13 @@ public class ZoneRestorationServiceImpl implements ZoneRestorationService {
     }
 
     @Override
-    public ZoneRestorationRecord createRecord(ZoneRestorationRecord record) {
-        record.setRestoredAt(Instant.now()); // use Instant, not LocalDateTime
+    public ZoneRestorationRecord restoreZone(ZoneRestorationRecord record) {
+        record.setRestoredAt(Instant.now());
         return repository.save(record);
     }
 
     @Override
-    public List<ZoneRestorationRecord> getAllRecords() {
+    public List<ZoneRestorationRecord> getAllRestorations() {
         return repository.findAll();
     }
 }

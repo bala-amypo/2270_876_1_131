@@ -11,35 +11,43 @@ import java.util.List;
 @Service
 public class ZoneServiceImpl implements ZoneService {
 
-    private final ZoneRepository zoneRepository;
+    private final ZoneRepository repository;
 
-    public ZoneServiceImpl(ZoneRepository zoneRepository) {
-        this.zoneRepository = zoneRepository;
+    public ZoneServiceImpl(ZoneRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public Zone createZone(Zone zone) {
         zone.setCreatedAt(Instant.now());
         zone.setActive(true);
-        return zoneRepository.save(zone);
+        return repository.save(zone);
+    }
+
+    @Override
+    public Zone getZoneById(long id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public List<Zone> getAllZones() {
-        return zoneRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
-    public Zone updateZone(Long id, Zone updated) {
-        Zone existing = zoneRepository.findById(id).orElseThrow();
-        existing.setName(updated.getName());
-        existing.setPopulation(updated.getPopulation());
+    public Zone updateZone(long id, Zone zone) {
+        Zone existing = repository.findById(id).orElseThrow();
+        existing.setName(zone.getName());
+        existing.setPopulation(zone.getPopulation());
         existing.setUpdatedAt(Instant.now());
-        return zoneRepository.save(existing);
+        return repository.save(existing);
     }
 
     @Override
-    public void deleteZone(Long id) {
-        zoneRepository.deleteById(id);
+    public void deactivateZone(long id) {
+        Zone zone = repository.findById(id).orElseThrow();
+        zone.setActive(false);
+        zone.setUpdatedAt(Instant.now());
+        repository.save(zone);
     }
 }
