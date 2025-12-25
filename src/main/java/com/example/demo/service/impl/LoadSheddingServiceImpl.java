@@ -3,16 +3,16 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.LoadSheddingEvent;
 import com.example.demo.repository.LoadSheddingRepository;
 import com.example.demo.service.LoadSheddingService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class LoadSheddingServiceImpl implements LoadSheddingService {
 
-    private final LoadSheddingRepository repository;
+    @Autowired
+    private LoadSheddingRepository repository;
 
     @Override
     public LoadSheddingEvent createEvent(LoadSheddingEvent event) {
@@ -21,12 +21,8 @@ public class LoadSheddingServiceImpl implements LoadSheddingService {
 
     @Override
     public LoadSheddingEvent updateEvent(Long id, LoadSheddingEvent event) {
-        LoadSheddingEvent existing = repository.findById(id).orElseThrow();
-        existing.setZone(event.getZone());
-        existing.setStartTime(event.getStartTime());
-        existing.setEndTime(event.getEndTime());
-        existing.setDescription(event.getDescription());
-        return repository.save(existing);
+        event.setId(id);
+        return repository.save(event);
     }
 
     @Override
