@@ -24,12 +24,18 @@ public class LoadSheddingServiceImpl implements LoadSheddingService {
     }
 
     @Override
-    public List<LoadSheddingEvent> getAllEvents() {
-        return repository.findAll();
+    public LoadSheddingEvent updateEvent(Long id, LoadSheddingEvent event) {
+        event.setEventTime(LocalDateTime.now());
+        return repository.save(event);
     }
 
     @Override
     public void deleteEvent(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<LoadSheddingEvent> getAllEvents() {
+        return repository.findAll();
     }
 }
