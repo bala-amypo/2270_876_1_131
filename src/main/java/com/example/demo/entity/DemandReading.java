@@ -1,33 +1,30 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.Instant;
 
 @Entity
-@Table(name = "demand_readings")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class DemandReading {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long zoneId;
+    @ManyToOne
+    private Zone zone;
 
-    private Double demandMW;
-
+    private double demand;
     private Instant createdAt;
 
-    // If needed, add constructors with fields except id
-    public DemandReading(Long zoneId, Double demandMW, Instant createdAt) {
-        this.zoneId = zoneId;
-        this.demandMW = demandMW;
-        this.createdAt = createdAt;
-    }
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Zone getZone() { return zone; }
+    public void setZone(Zone zone) { this.zone = zone; }
+
+    public double getDemand() { return demand; }
+    public void setDemand(double demand) { this.demand = demand; }
+
+    public Instant getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 }
