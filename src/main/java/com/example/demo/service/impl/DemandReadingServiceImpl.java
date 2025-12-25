@@ -5,30 +5,31 @@ import com.example.demo.repository.DemandReadingRepository;
 import com.example.demo.service.DemandReadingService;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
 public class DemandReadingServiceImpl implements DemandReadingService {
 
-    private final DemandReadingRepository demandReadingRepository;
+    private final DemandReadingRepository repository;
 
-    public DemandReadingServiceImpl(DemandReadingRepository demandReadingRepository) {
-        this.demandReadingRepository = demandReadingRepository;
+    public DemandReadingServiceImpl(DemandReadingRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public DemandReading createReading(DemandReading reading) {
-        return demandReadingRepository.save(reading);
+        reading.setCreatedAt(Instant.now());
+        return repository.save(reading);
     }
 
     @Override
     public List<DemandReading> getAllReadings() {
-        return demandReadingRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
     public DemandReading getLatestReading(long zoneId) {
-        return demandReadingRepository
-                .findFirstByZoneIdOrderByRecordedAtDesc(zoneId);
+        return repository.findTopByZoneIdOrderByCreatedAtDesc(zoneId);
     }
 }

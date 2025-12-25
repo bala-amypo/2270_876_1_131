@@ -6,24 +6,26 @@ import com.example.demo.repository.AppUserRepository;
 import com.example.demo.service.AppUserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AppUserServiceImpl implements AppUserService {
 
-    private final AppUserRepository appUserRepository;
+    private final AppUserRepository userRepository;
 
-    public AppUserServiceImpl(AppUserRepository appUserRepository) {
-        this.appUserRepository = appUserRepository;
+    public AppUserServiceImpl(AppUserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public AppUser registerUser(AppUser user) {
+    public AppUser createUser(AppUser user) {
         user.setActive(true);
+        user.setRole(Role.USER);   // ✅ enum usage
+        return userRepository.save(user);
+    }
 
-        // Directly assign role
-        Role role = new Role();
-        role.setName("USER");
-
-        user.setRole(role);
-        return appUserRepository.save(user);
+    @Override
+    public List<AppUser> getAllUsers() {
+        return userRepository.findAll();
     }
 }

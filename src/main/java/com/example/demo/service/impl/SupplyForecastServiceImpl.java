@@ -6,7 +6,6 @@ import com.example.demo.service.SupplyForecastService;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -20,10 +19,7 @@ public class SupplyForecastServiceImpl implements SupplyForecastService {
 
     @Override
     public SupplyForecast saveForecast(SupplyForecast forecast) {
-        if (forecast.getCreatedAt() == null) {
-            forecast.setCreatedAt(Instant.now());
-        }
-        forecast.setUpdatedAt(Instant.now());
+        forecast.setCreatedAt(Instant.now());
         return repository.save(forecast);
     }
 
@@ -34,9 +30,7 @@ public class SupplyForecastServiceImpl implements SupplyForecastService {
 
     @Override
     public SupplyForecast getLatestForecast() {
-        return repository.findAll()
-                .stream()
-                .max(Comparator.comparing(SupplyForecast::getCreatedAt))
-                .orElse(null);
+        List<SupplyForecast> list = repository.findAll();
+        return list.isEmpty() ? null : list.get(list.size() - 1);
     }
 }

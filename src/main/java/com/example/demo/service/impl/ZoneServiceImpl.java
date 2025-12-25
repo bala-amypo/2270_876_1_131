@@ -11,50 +11,43 @@ import java.util.List;
 @Service
 public class ZoneServiceImpl implements ZoneService {
 
-    private final ZoneRepository zoneRepository;
+    private final ZoneRepository repository;
 
-    public ZoneServiceImpl(ZoneRepository zoneRepository) {
-        this.zoneRepository = zoneRepository;
+    public ZoneServiceImpl(ZoneRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public Zone createZone(Zone zone) {
         zone.setActive(true);
         zone.setCreatedAt(Instant.now());
-        zone.setUpdatedAt(Instant.now());
-        return zoneRepository.save(zone);
+        return repository.save(zone);
     }
 
     @Override
     public Zone updateZone(Long id, Zone zone) {
-        Zone existing = zoneRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Zone not found"));
-
-        existing.setZoneName(zone.getZoneName());
+        Zone existing = repository.findById(id).orElseThrow();
+        existing.setName(zone.getName());
         existing.setPopulation(zone.getPopulation());
-        existing.setPriorityLevel(zone.getPriorityLevel());
-        existing.setActive(zone.getActive());
         existing.setUpdatedAt(Instant.now());
-
-        return zoneRepository.save(existing);
+        return repository.save(existing);
     }
 
     @Override
     public void deactivateZone(Long id) {
-        Zone zone = zoneRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Zone not found"));
+        Zone zone = repository.findById(id).orElseThrow();
         zone.setActive(false);
         zone.setUpdatedAt(Instant.now());
-        zoneRepository.save(zone);
+        repository.save(zone);
     }
 
     @Override
     public List<Zone> getAllZones() {
-        return zoneRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
     public Zone getZoneById(long id) {
-        return zoneRepository.findById(id).orElse(null);
+        return repository.findById(id).orElse(null);
     }
 }
