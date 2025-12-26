@@ -19,13 +19,13 @@ public class ZoneServiceImpl implements ZoneService {
 
     @Override
     public Zone createZone(Zone zone) {
-        zone.setCreatedAt(Instant.now());
         zone.setActive(true);
+        zone.setCreatedAt(Instant.now());
         return repository.save(zone);
     }
 
     @Override
-    public Zone getZoneById(Long id) {
+    public Zone getZoneById(long id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -35,7 +35,7 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public Zone updateZone(Long id, Zone zone) {
+    public Zone updateZone(long id, Zone zone) {
         Zone existing = repository.findById(id).orElseThrow();
         existing.setName(zone.getName());
         existing.setPopulation(zone.getPopulation());
@@ -44,7 +44,7 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public void deactivateZone(Long id) {
+    public void deactivateZone(long id) {
         Zone zone = repository.findById(id).orElseThrow();
         zone.setActive(false);
         zone.setUpdatedAt(Instant.now());
