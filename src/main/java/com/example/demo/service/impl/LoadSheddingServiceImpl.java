@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.LoadSheddingEvent;
-import com.example.demo.repository.LoadSheddingRepository;
+import com.example.demo.repository.LoadSheddingEventRepository;
 import com.example.demo.service.LoadSheddingService;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +10,9 @@ import java.util.List;
 @Service
 public class LoadSheddingServiceImpl implements LoadSheddingService {
 
-    private final LoadSheddingRepository repository;
+    private final LoadSheddingEventRepository repository;
 
-    public LoadSheddingServiceImpl(LoadSheddingRepository repository) {
+    public LoadSheddingServiceImpl(LoadSheddingEventRepository repository) {
         this.repository = repository;
     }
 
