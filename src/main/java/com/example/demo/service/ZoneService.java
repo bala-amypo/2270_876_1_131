@@ -7,11 +7,9 @@ public interface ZoneService {
 
     Zone createZone(Zone zone);
 
-    Zone getZoneById(long id);   // 🔥 MUST be long
+    Zone getZoneById(long id);
 
     List<Zone> getAllZones();
 
-    Zone updateZone(long id, Zone zone);
-
-    void deactivateZone(long id);
+    Zone deactivateZone(Long id);
 }

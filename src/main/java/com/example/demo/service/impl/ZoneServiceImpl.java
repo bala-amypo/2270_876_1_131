@@ -5,49 +5,39 @@ import com.example.demo.repository.ZoneRepository;
 import com.example.demo.service.ZoneService;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.List;
 
 @Service
 public class ZoneServiceImpl implements ZoneService {
 
-    private final ZoneRepository repository;
+    private final ZoneRepository zoneRepository;
 
-    public ZoneServiceImpl(ZoneRepository repository) {
-        this.repository = repository;
+    public ZoneServiceImpl(ZoneRepository zoneRepository) {
+        this.zoneRepository = zoneRepository;
     }
 
     @Override
     public Zone createZone(Zone zone) {
-        zone.setActive(true);
-        zone.setCreatedAt(Instant.now());
-        return repository.save(zone);
+        return zoneRepository.save(zone);
     }
 
     @Override
     public Zone getZoneById(long id) {
-        return repository.findById(id).orElse(null);
+        return zoneRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<Zone> getAllZones() {
-        return repository.findAll();
+        return zoneRepository.findAll();
     }
 
     @Override
-    public Zone updateZone(long id, Zone zone) {
-        Zone existing = repository.findById(id).orElseThrow();
-        existing.setName(zone.getName());
-        existing.setPopulation(zone.getPopulation());
-        existing.setUpdatedAt(Instant.now());
-        return repository.save(existing);
-    }
-
-    @Override
-    public void deactivateZone(long id) {
-        Zone zone = repository.findById(id).orElseThrow();
-        zone.setActive(false);
-        zone.setUpdatedAt(Instant.now());
-        repository.save(zone);
+    public Zone deactivateZone(Long id) {
+        Zone zone = zoneRepository.findById(id).orElse(null);
+        if (zone != null) {
+            zone.setActive(false);
+            return zoneRepository.save(zone);
+        }
+        return null;
     }
 }
