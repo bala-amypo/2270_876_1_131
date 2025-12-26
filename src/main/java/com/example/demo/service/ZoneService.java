@@ -11,5 +11,7 @@ public interface ZoneService {
 
     List<Zone> getAllZones();
 
+    Zone updateZone(Long id, Zone zone);
+
     Zone deactivateZone(Long id);
 }

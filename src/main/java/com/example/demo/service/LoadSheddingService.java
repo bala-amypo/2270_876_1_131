@@ -7,6 +7,8 @@ public interface LoadSheddingService {
 
     LoadSheddingEvent createEvent(LoadSheddingEvent event);
 
+    LoadSheddingEvent updateEvent(Long id, LoadSheddingEvent event);
+
     List<LoadSheddingEvent> getAllEvents();
 
     void deleteEvent(Long id);
