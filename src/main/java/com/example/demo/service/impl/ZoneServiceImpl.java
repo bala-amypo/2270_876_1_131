@@ -32,6 +32,16 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
+    public Zone updateZone(Long id, Zone zone) {
+        Zone existing = zoneRepository.findById(id).orElse(null);
+        if (existing != null) {
+            zone.setId(id);
+            return zoneRepository.save(zone);
+        }
+        return null;
+    }
+
+    @Override
     public Zone deactivateZone(Long id) {
         Zone zone = zoneRepository.findById(id).orElse(null);
         if (zone != null) {
